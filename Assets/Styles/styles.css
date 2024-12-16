@@ -1,0 +1,31 @@
+body {
+    background: linear-gradient(45deg ,#4b007a, #6c04ad,#a82658, #ba4672);
+      min-height: 155vh;
+  }
+
+  .gradient-custom-2 {
+    background: linear-gradient(45deg ,#4b007a, #6c04ad,#a82658, #ba4672);
+  }
+
+  
+
+  @media (min-width: 768px) {
+      .gradient-form {
+          height: 100vh !important;
+      }
+  }
+
+  @media (min-width: 769px) {
+      .gradient-custom-2 {
+          border-top-right-radius: .3rem;
+          border-bottom-right-radius: .3rem;
+      }
+  }
+
+  .btn {
+    padding: .45rem 1.5rem .35rem;
+  }
+  
+  .gradient-custom {
+    background: linear-gradient(to right,  rgb(4, 4, 53), rgb(8, 54, 110))
+  }
