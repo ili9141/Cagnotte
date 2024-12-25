@@ -27,5 +27,5 @@ body {
   }
   
   .gradient-custom {
-    background: linear-gradient(to right,  rgb(4, 4, 53), rgb(8, 54, 110))
+    background: linear-gradient(to right,  rgb(4, 4, 53), rgb(8, 54, 110));
   }

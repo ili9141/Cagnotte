@@ -2,6 +2,7 @@ class Date
 {
 private:
     int j;    
+    
     int m;    
     int a;    
     int h;    
