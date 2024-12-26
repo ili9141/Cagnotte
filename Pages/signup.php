@@ -1,82 +1,116 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Assets/Styles/styles.css">
-  </head>
+    <title>Sign Up</title>
+</head>
 <body>
-  
-  <section class="h-100 gradient-form mt-5">
-    <div class="container py-5 h-100">
-      <div class="row d-flex justify-content-center align-items-center h-100">
-        <div class="col-xl-10">
-          <div class="card rounded-3" style="background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110)); color: #fff;">
-            <div class="row g-0">
-              <!-- Text Section -->
-              <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
-                <div class="text-white px-3 py-4 p-md-5 mx-md-4">
-                  <h4 class="mb-4">&nbsp;&nbsp;&nbsp;&nbsp; Spend Smarter, Track Better</h4>
-                  <p class="small mb-0">Take control of your finances with ease! Our app is designed to help you track your spendings, analyze your habits, and create a budget that works for you. Whether you're saving for a big goal, trying to cut down on unnecessary expenses, or simply staying on top of your finances, we provide the tools and insights to empower smarter financial decisions.
+    <section class="h-100 gradient-form mt-5">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-xl-10">
+                    <div class="card rounded-3" style="background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110)); color: #fff;">
+                        <div class="row g-0">
+                            <div class="col-lg-6">
+                                <div class="card-body p-md-5 mx-md-4">
+                                    <div class="text-center mb-5">
+                                        <img src="../Assets/Images/logo.png" style="width: 300px; height: 150px;" alt="logo">
+                                        <h4 class="mt-1 mb-4">Create Your Account</h4>
+                                    </div>
 
-                    Start your journey to better money management today!</p>
+                                    <?php
+                                    // Display validation errors
+                                    if (isset($_SESSION['errors'])) {
+                                        foreach ($_SESSION['errors'] as $error) {
+                                            echo '<div class="alert alert-danger">' . htmlspecialchars($error) . '</div>';
+                                        }
+                                        unset($_SESSION['errors']);
+                                    }
+
+                                    // Display single error message
+                                    if (isset($_SESSION['error'])) {
+                                        echo '<div class="alert alert-danger">' . htmlspecialchars($_SESSION['error']) . '</div>';
+                                        unset($_SESSION['error']);
+                                    }
+
+                                    // Get stored form data
+                                    $form_data = $_SESSION['form_data'] ?? [];
+                                    ?>
+
+                                    <form method="POST" action="../Backend/signup.php">
+                                        <div class="row">
+                                            <div class="col-md-6 mb-4">
+                                                <div class="form-outline">
+                                                    <input type="text" name="first_name" class="form-control" 
+                                                           value="<?php echo htmlspecialchars($form_data['first_name'] ?? ''); ?>" required>
+                                                    <label class="form-label">First Name</label>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-6 mb-4">
+                                                <div class="form-outline">
+                                                    <input type="text" name="last_name" class="form-control"
+                                                           value="<?php echo htmlspecialchars($form_data['last_name'] ?? ''); ?>" required>
+                                                    <label class="form-label">Last Name</label>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="email" name="email" class="form-control"
+                                                   value="<?php echo htmlspecialchars($form_data['email'] ?? ''); ?>" required>
+                                            <label class="form-label">Email</label>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="password" name="password" class="form-control" required>
+                                            <label class="form-label">Password</label>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="password" name="confirm_password" class="form-control" required>
+                                            <label class="form-label">Confirm Password</label>
+                                        </div>
+
+                                        <div class="small mb-4 text-white-50">
+                                            Password must contain:
+                                            <ul>
+                                                <li>At least 8 characters</li>
+                                                <li>One uppercase letter</li>
+                                                <li>One lowercase letter</li>
+                                                <li>One number</li>
+                                            </ul>
+                                        </div>
+
+                                        <div class="text-center pt-1 mb-5 pb-1">
+                                            <button class="btn btn-primary btn-block gradient-custom-2 mb-3" 
+                                                    style="width: 65%" type="submit">Sign Up</button>
+                                        </div>
+
+                                        <div class="d-flex align-items-center justify-content-center pb-4">
+                                            <p class="mb-0 me-2">Already have an account?</p>
+                                            <a href="login.php" class="btn btn-outline-danger">Log in</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                                <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                                    <h4 class="mb-4">Join Our Community</h4>
+                                    <p class="small mb-0">Take control of your finances with ease! Our app helps you track spending, 
+                                    analyze habits, and create effective budgets. Whether you're saving for goals or managing daily expenses, 
+                                    we provide the tools for smarter financial decisions.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-
-              <!-- Sign-Up Form Section -->
-              <div class="col-lg-6">
-                <div class="card-body p-md-5 mx-md-4">
-                  <div class="text-center">
-                    <img src="../Assets/Images/logo.png" style="width: 300px; height: 150px;" alt="logo">
-                  </div>
-
-                  <form method="POST" action="../Backend/signup.php">
-                    <p class="mt-2">Create your account</p>
-                  
-                    <div class="mb-4">
-                      <input type="text" name="first_name" id="firstName" class="form-control" placeholder="First Name" required>
-                      <label class="form-label" for="firstName">First Name</label>
-                    </div>
-                  
-                    <div class="mb-4">
-                      <input type="text" name="last_name" id="lastName" class="form-control" placeholder="Last Name" required>
-                      <label class="form-label" for="lastName">Last Name</label>
-                    </div>
-                  
-                    <div class="mb-4">
-                      <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" required>
-                      <label class="form-label" for="email">Email</label>
-                    </div>
-                  
-                    <div class="mb-4">
-                      <input type="password" name="password" id="password" class="form-control" placeholder="Password" required>
-                      <label class="form-label" for="password">Password</label>
-                    </div>
-                  
-                    <div class="mb-4">
-                      <input type="password" name="confirm_password" id="confirmPassword" class="form-control" placeholder="Confirm Password" required>
-                      <label class="form-label" for="confirmPassword">Confirm Password</label>
-                    </div>
-                  
-                    <div class="text-center pt-1 mb-5 pb-1">
-                      <button style="width: 65%" class="btn btn-primary btn-block gradient-custom-2 mb-3" type="submit">Sign Up</button><br>
-                    </div>
-                  
-                    <div class="d-flex align-items-center justify-content-center pb-4">
-                      <p class="mb-0 me-2">Already have an account?</p>
-                      <a href="login.php" class="btn btn-outline-danger">Log In</a>
-                    </div>
-                  </form>
-                  </div>
-              </div>
-
             </div>
-          </div>
         </div>
-      </div>
-    </div>
-  </section>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
