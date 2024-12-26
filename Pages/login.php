@@ -1,3 +1,5 @@
+<?php session_start(); ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -24,6 +26,14 @@
                 <form method="POST" action="../Backend/login.php">
                   <p class="mt-2">Please login to your account</p>
 
+                  <!-- Show error message -->
+                  <?php
+                  if (isset($_SESSION['error'])) {
+                      echo '<div class="alert alert-danger">' . $_SESSION['error'] . '</div>';
+                      unset($_SESSION['error']);  // Clear the error message after displaying it
+                  }
+                  ?>
+
                   <div class="mb-4">
                     <input type="email" id="form2Example11" name="email" class="form-control" placeholder="Phone number or email address" required>
                     <label class="form-label" for="form2Example11">Username</label>
@@ -41,7 +51,7 @@
 
                   <div class="d-flex align-items-center justify-content-center pb-4">
                     <p class="mb-0 me-2">Don't have an account?</p>
-                    <a href="signup.html" class="btn btn-outline-danger">Create new</a>
+                    <a href="signup.php" class="btn btn-outline-danger">Create new</a>
                   </div>
                 </form>
               </div>

@@ -65,7 +65,7 @@
                   
                     <div class="d-flex align-items-center justify-content-center pb-4">
                       <p class="mb-0 me-2">Already have an account?</p>
-                      <a href="login.html" class="btn btn-outline-danger">Log In</a>
+                      <a href="login.php" class="btn btn-outline-danger">Log In</a>
                     </div>
                   </form>
                   </div>

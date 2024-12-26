@@ -14,7 +14,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Validate password match
     if ($password !== $confirm_password) {
         $_SESSION['error'] = "Passwords do not match.";
-         header("Location: ../Pages/signup.html");
+         header("Location: ../Pages/signup.php");
         exit();
     }
 
@@ -26,12 +26,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $existingUser = $user->getUserByEmail($email);
     if ($existingUser) {
         $_SESSION['error'] = "Email is already registered.";
-         header("Location: ../Pages/signup.html");
+         header("Location: ../Pages/signup.php");
         exit();
     }
 
-    // Hash the password before storing it
-    $hashedPassword = password_hash($password, PASSWORD_BCRYPT);
+   // Hash the password before storing it
+$hashedPassword = password_hash($password, PASSWORD_DEFAULT);
+
 
     // Set user data
     $user->name = $first_name . ' ' . $last_name;
@@ -42,10 +43,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     // Create user
     if ($user->create()) {
         $_SESSION['success'] = "Account created successfully. You can now log in.";
-        header("Location: ../Pages/login.html");  // Redirect to login.html after successful registration
+        header("Location: ../Pages/login.php");  // Redirect to login.html after successful registration
     } else {
         $_SESSION['error'] = "An error occurred. Please try again.";
-        header("Location: ../Pages/signup.html");  // Redirect back to the signup page on error
+        header("Location: ../Pages/signup.php");  // Redirect back to the signup page on error
     }
     exit();
 }
