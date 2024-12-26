@@ -71,7 +71,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Check if email already exists
     $existingUser = $user->getUserByEmail($email);
-    if ($existingUser) {
+
+    if ($existingUser !== null) {
         $_SESSION['error'] = "Email is already registered.";
         $_SESSION['form_data'] = [
             'first_name' => $first_name,
