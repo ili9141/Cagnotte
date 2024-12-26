@@ -45,10 +45,12 @@ class User {
             $stmt = $this->conn->prepare($query);
             $stmt->bindParam(':email', $email);
             $stmt->execute();
-            return $stmt->fetch(PDO::FETCH_ASSOC);
+            
+            $result = $stmt->fetch(PDO::FETCH_ASSOC);
+            return $result ? $result : null; // Explicitly return null if no user found
         } catch (PDOException $e) {
             error_log("Error in getUserByEmail: " . $e->getMessage());
-            return false;
+            return null;
         }
     }
 
