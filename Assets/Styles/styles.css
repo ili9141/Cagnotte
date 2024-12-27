@@ -1,6 +1,6 @@
 /* General Body Styles */
 body {
-  background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672);
+  background: linear-gradient(45deg,#0C134F, #1D267D , #5C469C,#D4ADFC);
   min-height: 100vh; /* Adjusted to allow dynamic height */
   color: #fff;
   font-family: 'Dancing Script', cursive;
@@ -100,10 +100,9 @@ h2 {
 
 /* Footer Styles */
 footer {
-  background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672);
+  background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110));
   color: #fff;
   text-align: center;
-  padding: 30px 15px;
   margin-top: 30px;
   box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.3);
   font-size: 0.85rem;
@@ -163,4 +162,268 @@ footer a:hover {
   footer p {
       font-size: 0.75rem;
   }
+}
+ /* Hover dropdown for Profile */
+ .nav-item.dropdown:hover .dropdown-menu {
+  display: block;
+  margin-top: 8px;
+  /* Adjust the space between the dropdown and the navbar */
+}
+
+/* Ensures the Home and Notifications items are vertically centered */
+.navbar-nav .nav-item {
+  display: flex;
+  align-items: center;
+  height: 100%;
+}
+
+/* Centers the icons and text inside the navigation items */
+.navbar-nav .nav-link {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Adjust navbar and dropdown colors */
+.navbar-dark .navbar-nav .nav-link {
+  color: #ffffff;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: #d4adfc;
+}
+
+.navbar-nav .nav-item .dropdown-menu {
+  background-color: #0C134F !important;
+  /* Matches navbar background color */
+}
+
+.dropdown-menu a {
+  color: white;
+}
+
+.dropdown-menu a:hover {
+  background-color: #1D267D;
+  /* Slight hover effect on menu items */
+}
+
+/* Adjust position of navbar items (Home, Notifications) */
+.navbar-nav.ms-auto {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+/* Adjust margin for dropdown items and ensure consistent icon positioning */
+.navbar-nav .nav-item .nav-link .d-flex {
+  align-items: center;
+}
+
+.nav-item .nav-link {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+/* Ensure the icons and text (Notifications and Home) are centered properly */
+.navbar-nav .nav-item i {
+  font-size: 20px;
+}
+
+.navbar-nav .nav-item .badge {
+  margin-top: 5px;
+  /* Adjust the badge position */
+}
+
+/* Additional tweak to adjust vertical alignment for Notifications */
+.nav-item:nth-child(2) .nav-link {
+  padding-top: 8px;
+  /* Adjusted padding for better alignment */
+}
+
+/* Fixes dropdown menu below profile icon */
+.nav-item.dropdown .dropdown-menu {
+  position: absolute;
+  top: 100%;
+  /* Positions it directly below the icon */
+  left: -100px;
+  right: 0;
+  border-radius: 10px;
+}
+.section-content {
+  display: none;
+}
+
+.section-content.active {
+  display: block;
+}
+
+/* Updated Button Styles */
+.nav-pills .nav-link {
+  background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110));
+  color: white;
+  border-radius: 5px;
+}
+
+.nav-pills .nav-link.active {
+  background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672);
+  color: white;
+}
+
+.nav-pills .nav-link:hover {
+  background: linear-gradient(to left, rgb(4, 4, 53), rgb(8, 54, 110));
+  color: white;
+}
+
+/* Enhanced Table Styles */
+.table {
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: center;
+  font-weight: bold;
+  padding: 10px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+.table td {
+  text-align: center;
+  padding: 10px;
+  vertical-align: middle;
+}
+
+.table tbody tr:nth-child(even) {
+  background-color: #f8f8f8;
+}
+
+.table tbody tr:hover {
+  background-color: rgba(108, 4, 173, 0.1);
+  transition: background-color 0.2s ease-in-out;
+}
+
+.table thead th {
+  font-size: 1rem;
+  text-transform: uppercase;
+}
+
+.table button {
+  font-size: 0.85rem;
+  font-weight: 600;
+  padding: 5px 10px;
+}
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Zilla+Slab:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');    
+
+body {
+    font-family: 'Dancing Script', cursive;
+}
+
+.bg-image {
+    position: relative;
+}
+
+.btn-primary {
+    background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672);
+    border-color: #ff69b4;
+}
+
+.btn-primary:hover {
+    background: linear-gradient(45deg, rgba(255, 105, 180, 0.9), rgba(255, 20, 147, 0.9));
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .bg-image {
+        height: 70vh;
+    }
+
+    .content h1 {
+        font-size: 2.5rem;
+    }
+
+    .content p {
+        font-size: 1.2rem;
+    }
+}
+
+.overlay {
+   
+    border-radius: 15px;
+}
+
+.card {
+    height: 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+    transform: scale(1.05);
+}
+
+.card-title {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.card-text {
+    font-size: 1rem;
+    text-align: center;
+}
+@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&display=swap');
+
+body {
+    font-family: 'Zilla Slab', serif;
+}
+
+.profile-header {
+    background-image: url('../Assets/Images/banner4.png');
+    color: white;
+    border-radius: 15px;
+    padding: 20px;
+}
+
+.profile-header h1 {
+    font-size: 2.5rem;
+}
+
+.profile-card {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 15px;
+    padding: 20px;
+    margin-bottom: 20px;
+    background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110));
+    color: azure;
+}
+
+.update-form {
+    display: none; /* Hide the update form initially */
+}
+
+.btn-custom {
+    background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672);
+    border: none;
+    color: white;
+}
+
+.btn-custom:hover {
+    background: linear-gradient(45deg, rgba(255, 105, 180, 0.9), rgba(255, 20, 147, 0.9));
+    transform: scale(1.05);
+}
+
+.show-update-form {
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.update-message {
+    margin-top: 20px;
 }
