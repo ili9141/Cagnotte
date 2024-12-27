@@ -32,7 +32,7 @@
 
         </ul>
         <ul class="navbar-nav ms-auto d-flex flex-row mt-3 mt-lg-0 me-3">
-          <li class="nav-item dropdown text-center mx-2 mx-lg-1">
+          <li class="nav-item dropdown text-center mx-2 mx-lg-1" >
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown"
               aria-expanded="false">
               <div>
