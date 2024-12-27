@@ -15,9 +15,23 @@
     .section-content.active {
       display: block;
     }
+
+    .gradient-bg {
+      background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110));
+      color: white;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    canvas {
+      background-color: white;
+      border-radius: 10px;
+      margin-top: 20px;
+    }
   </style>
 </head>
 <body>
+
 <?php include('../components/important-header.php'); ?>
 <?php include('../components/navb.php'); ?>
 
@@ -38,12 +52,13 @@
   </ul>
 
   <!-- Sections -->
+
   <!-- User Management Section -->
   <div id="user-management" class="section-content active">
     <h4>User Management</h4>
     <div class="table-responsive">
-      <table class="table table-bordered table-striped">
-        <thead class="table-dark">
+      <table class="table table-hover table-striped">
+        <thead style="background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672); color: white;">
           <tr>
             <th>ID</th>
             <th>Username</th>
@@ -54,7 +69,6 @@
           </tr>
         </thead>
         <tbody>
-          <!-- Add user rows dynamically -->
           <?php 
           $users = [
             ["1", "JohnDoe", "john.doe@example.com", "$500", "2023-01-15"],
@@ -88,52 +102,11 @@
   <!-- Expense Management Section -->
   <div id="expense-management" class="section-content">
     <h4>Expense Management</h4>
-    <div class="table-responsive">
-      <table class="table table-bordered table-striped">
-        <thead class="table-dark">
-          <tr>
-            <th>Expense ID</th>
-            <th>User</th>
-            <th>Date</th>
-            <th>Category</th>
-            <th>Amount</th>
-            <th>Comment</th>
-            <th>Actions</th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- Add expenses dynamically -->
-          <?php 
-          $expenses = [
-            ["101", "JohnDoe", "2023-12-01", "Groceries", "$50", "Weekly groceries"],
-            ["102", "JaneSmith", "2023-12-02", "Shopping", "$120", "Clothing purchase"],
-            ["103", "MikeJohnson", "2023-12-03", "Rent", "$500", "Monthly rent"],
-            ["104", "SusanLee", "2023-12-04", "Groceries", "$70", "Weekly groceries"],
-            ["105", "TomBrown", "2023-12-06", "Utilities", "$90", "Internet bill"],
-            ["106", "AnnaWhite", "2023-12-01", "Entertainment", "$150", "Concert tickets"],
-            ["107", "ChrisGreen", "2023-12-02", "Transport", "$35", "Taxi fare"]
-          ];
-          foreach ($expenses as $expense) {
-            echo "<tr>
-                    <td>{$expense[0]}</td>
-                    <td>{$expense[1]}</td>
-                    <td>{$expense[2]}</td>
-                    <td>{$expense[3]}</td>
-                    <td>{$expense[4]}</td>
-                    <td>{$expense[5]}</td>
-                    <td>
-                      <button class='btn btn-danger btn-sm'>Delete</button>
-                    </td>
-                  </tr>";
-          }
-          ?>
-        </tbody>
-      </table>
-    </div>
+    <p>No specific expense details are currently displayed.</p>
   </div>
 
   <!-- Statistics Section -->
-  <div id="statistics" class="section-content">
+  <div id="statistics" class="section-content gradient-bg">
     <h4>Statistics</h4>
     <div class="text-center mb-4">
       <label for="statistics-select">Choose Statistics:</label>
@@ -142,10 +115,14 @@
         <option value="user">Single User</option>
       </select>
     </div>
+
+    <!-- All Users Statistics -->
     <div id="all-users-statistics" class="statistics-content">
       <h5>All Users Statistics</h5>
       <canvas id="allUsersChart" width="400" height="200"></canvas>
     </div>
+
+    <!-- Single User Statistics -->
     <div id="single-user-statistics" class="statistics-content" style="display: none;">
       <h5>Single User Statistics</h5>
       <div class="form-group">
@@ -174,17 +151,12 @@
   function showSection(sectionId) {
     const sections = document.querySelectorAll('.section-content');
     const tabs = document.querySelectorAll('.nav-link');
-
-    // Masquer toutes les sections et retirer la classe "active" de tous les onglets
     sections.forEach(section => section.classList.remove('active'));
     tabs.forEach(tab => tab.classList.remove('active'));
-
-    // Afficher la section sélectionnée et marquer l'onglet correspondant comme actif
     document.getElementById(sectionId).classList.add('active');
     document.getElementById(`${sectionId}-tab`).classList.add('active');
   }
 
-  // Exemple pour initialiser les graphiques
   const ctxAll = document.getElementById('allUsersChart').getContext('2d');
   new Chart(ctxAll, {
     type: 'bar',
@@ -204,18 +176,6 @@
     }
   });
 
-  document.getElementById('statistics-select').addEventListener('change', function () {
-    const value = this.value;
-    if (value === 'all') {
-      document.getElementById('all-users-statistics').style.display = 'block';
-      document.getElementById('single-user-statistics').style.display = 'none';
-    } else {
-      document.getElementById('all-users-statistics').style.display = 'none';
-      document.getElementById('single-user-statistics').style.display = 'block';
-    }
-  });
-
-  // Gestion des statistiques pour un utilisateur spécifique
   const userStats = {
     1: { name: 'JohnDoe', data: [50, 100, 150], categories: ['Groceries', 'Rent', 'Transport'] },
     2: { name: 'JaneSmith', data: [200, 300, 250], categories: ['Shopping', 'Entertainment', 'Utilities'] },
@@ -226,17 +186,17 @@
     7: { name: 'ChrisGreen', data: [120, 300, 200], categories: ['Transport', 'Groceries', 'Utilities'] }
   };
 
+  document.getElementById('statistics-select').addEventListener('change', function () {
+    const value = this.value;
+    document.getElementById('all-users-statistics').style.display = value === 'all' ? 'block' : 'none';
+    document.getElementById('single-user-statistics').style.display = value === 'user' ? 'block' : 'none';
+  });
+
   document.getElementById('single-user-select').addEventListener('change', function () {
     const userId = this.value;
     const user = userStats[userId];
     const ctx = document.getElementById('singleUserChart').getContext('2d');
-
-    // Supprimer l'ancien graphique
-    if (window.singleUserChartInstance) {
-      window.singleUserChartInstance.destroy();
-    }
-
-    // Créer un nouveau graphique pour l'utilisateur sélectionné
+    if (window.singleUserChartInstance) window.singleUserChartInstance.destroy();
     window.singleUserChartInstance = new Chart(ctx, {
       type: 'bar',
       data: {
@@ -256,6 +216,5 @@
     });
   });
 </script>
-
 </body>
 </html>

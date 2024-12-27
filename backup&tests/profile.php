@@ -1,3 +1,4 @@
+
 <?php
 // Start the session
 session_start();
@@ -56,7 +57,57 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Assets/Styles/styles.css">
-    
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&display=swap');
+
+        body {
+            font-family: 'Zilla Slab', serif;
+        }
+
+        .profile-header {
+            background-image: url('../Assets/Images/banner4.png');
+            color: white;
+            border-radius: 15px;
+            padding: 20px;
+        }
+
+        .profile-header h1 {
+            font-size: 2.5rem;
+        }
+
+        .profile-card {
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110));
+            color: azure;
+        }
+
+        .update-form {
+            display: none; /* Hide the update form initially */
+        }
+
+        .btn-custom {
+            background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672);
+            border: none;
+            color: white;
+        }
+
+        .btn-custom:hover {
+            background: linear-gradient(45deg, rgba(255, 105, 180, 0.9), rgba(255, 20, 147, 0.9));
+            transform: scale(1.05);
+        }
+
+        .show-update-form {
+            cursor: pointer;
+            text-decoration: underline;
+        }
+
+        .update-message {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 
 <body>
