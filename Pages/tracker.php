@@ -4,13 +4,16 @@
 <div class="mt-5 mb-5"></div>
 
 <div class="container py-5">
-<h1 class="text-center mb-4" style="color: white">Keep Track of Your Spendings</h1>
+  <h1 class="text-center mb-4" style="color: white">Keep Track of Your Spendings</h1>
   <ul class="nav nav-tabs justify-content-center" id="trackerTabs" role="tablist">
     <li class="nav-item" role="presentation">
       <button class="nav-link active" id="goals-tab" data-bs-toggle="tab" data-bs-target="#goals" type="button" role="tab">Goals</button>
     </li>
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="graph-tab" data-bs-toggle="tab" data-bs-target="#graph" type="button" role="tab">Graph</button>
+    </li>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link" id="add-expense-tab" data-bs-toggle="tab" data-bs-target="#add-expense" type="button" role="tab">Add Expense</button>
     </li>
   </ul>
 
@@ -73,12 +76,56 @@
         </div>
       </div>
     </div>
+
+ <!-- Add Expense Tab -->
+<div class="tab-pane fade" id="add-expense" role="tabpanel">
+  <div class="expense-form">
+    <h4 class="text-center mb-4">Add an Expense</h4>
+    <form method="POST" action="../Backend/add_expense.php">
+      <!-- Date Field -->
+      <div class="mb-3">
+        <label for="expenseDate" class="form-label">Date</label>
+        <input type="date" class="form-control" id="expenseDate" name="expenseDate" required>
+      </div>
+
+      <!-- Category Field -->
+      <div class="mb-3">
+        <label for="expenseCategory" class="form-label">Category</label>
+        <select class="form-select" id="expenseCategory" name="expenseCategory" required>
+          <option value="" disabled selected>Select a category</option>
+          <option value="1">Food</option>
+          <option value="2">Transport</option>
+          <option value="3">Groceries</option>
+          <option value="4">Hobbies</option>
+          <option value="5">Other</option>
+        </select>
+      </div>
+
+      <!-- Cost Field -->
+      <div class="mb-3">
+        <label for="expenseCost" class="form-label">Cost</label>
+        <input type="number" class="form-control" id="expenseCost" name="expenseCost" placeholder="Enter the amount" required>
+      </div>
+
+      <!-- Comment Field -->
+      <div class="mb-3">
+        <label for="expenseComment" class="form-label">Comment</label>
+        <textarea class="form-control" id="expenseComment" name="expenseComment" rows="3" placeholder="Add a comment (optional)"></textarea>
+      </div>
+
+      <!-- Submit Button -->
+      <div class="text-center">
+        <button type="submit" class="btn btn-custom">Add Expense</button>
+      </div>
+    </form>
+  </div>
+</div>
+
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  // Chart setup
   const ctx = document.getElementById('expensesChart').getContext('2d');
   const expensesChart = new Chart(ctx, {
     type: 'bar',
@@ -86,7 +133,7 @@
       labels: ['Food', 'Transport', 'Groceries', 'Hobbies', 'Other'],
       datasets: [{
         label: 'Expenses',
-        data: [300, 150, 2000, 100, 250], // Example data
+        data: [300, 150, 2000, 100, 250],
         backgroundColor: [
           '#f94144',
           '#f3722c',
@@ -126,12 +173,11 @@
   }
 
   .tab-content {
-        background: linear-gradient(to right,  rgb(4, 4, 53), rgb(8, 54, 110));
-        border-radius: 15px;
-        padding: 20px;
-        color: azure;
-      }
-
+    background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110));
+    border-radius: 15px;
+    padding: 20px;
+    color: azure;
+  }
 
   .progress-bar {
     border-radius: 10px;
@@ -167,12 +213,13 @@
   }
 
   .nav-tabs .nav-link.active {
-    background: linear-gradient(45deg ,#4b007a, #6c04ad,#a82658, #ba4672);
+    background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672);
     color: white;
   }
+
   .custom-save-btn {
-    background: linear-gradient(45deg ,#4b007a, #6c04ad,#a82658, #ba4672);
-    border-color:linear-gradient(45deg ,#4b007a, #6c04ad,#a82658, #ba4672) ;
+    background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672);
+    border-color: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672);
     color: white;
   }
 

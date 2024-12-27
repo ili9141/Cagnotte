@@ -16,7 +16,6 @@ class User {
     }
 
     public function create() {
-        // Validate password strength
         if (!$this->isPasswordStrong($this->password)) {
             return false;
         }
@@ -28,7 +27,7 @@ class User {
         
         $stmt = $this->conn->prepare($query);
 
-        $this->remember_token = bin2hex(random_bytes(32)); // Generate remember token
+        $this->remember_token = bin2hex(random_bytes(32));
 
         $stmt->bindParam(':name', $this->name);
         $stmt->bindParam(':email', $this->email);
@@ -47,7 +46,7 @@ class User {
             $stmt->execute();
             
             $result = $stmt->fetch(PDO::FETCH_ASSOC);
-            return $result ? $result : null; // Explicitly return null if no user found
+            return $result ? $result : null;
         } catch (PDOException $e) {
             error_log("Error in getUserByEmail: " . $e->getMessage());
             return null;
@@ -82,11 +81,8 @@ class User {
             $this->type = $row['type'];
             
             if ($remember) {
-                // Update remember token
                 $this->remember_token = bin2hex(random_bytes(32));
                 $this->updateRememberToken();
-                
-                // Set remember cookie (30 days)
                 setcookie('remember_token', $this->remember_token, time() + (86400 * 30), '/');
                 setcookie('user_id', $this->id, time() + (86400 * 30), '/');
             }
@@ -129,11 +125,8 @@ class User {
         return false;
     }
 
-    private function isPasswordStrong($password) {
-        // Password must be at least 8 characters
-        // Must contain at least one uppercase letter
-        // Must contain at least one lowercase letter
-        // Must contain at least one number
+    // Changed the visibility to public
+    public function isPasswordStrong($password) {
         $uppercase = preg_match('@[A-Z]@', $password);
         $lowercase = preg_match('@[a-z]@', $password);
         $number    = preg_match('@[0-9]@', $password);
@@ -146,18 +139,40 @@ class User {
     }
 
     public function logout() {
-        // Remove remember cookies if they exist
         if (isset($_COOKIE['remember_token'])) {
             setcookie('remember_token', '', time() - 3600, '/');
             setcookie('user_id', '', time() - 3600, '/');
         }
         
-        // Update remember token in database to invalidate it
         $this->remember_token = null;
         $this->updateRememberToken();
-        
-        // Destroy session
         session_destroy();
     }
+
+    // Add the update method
+    public function update() {
+        $query = "UPDATE " . $this->table . " 
+                  SET name = :name, email = :email, password = :password 
+                  WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+
+        $hashedPassword = $this->password ? password_hash($this->password, PASSWORD_DEFAULT) : null;
+
+        $stmt->bindParam(':name', $this->name);
+        $stmt->bindParam(':email', $this->email);
+        $stmt->bindParam(':id', $this->id);
+        $stmt->bindValue(':password', $hashedPassword);
+
+        return $stmt->execute();
+    }
+
+    // Add the delete method
+    public function delete() {
+        $query = "DELETE FROM " . $this->table . " WHERE id = :id";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(':id', $this->id);
+        return $stmt->execute();
+    }
 }
+
 ?>
