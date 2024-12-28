@@ -42,12 +42,11 @@
               Your Profile
             </a>
             <ul class="dropdown-menu bg-danger" aria-labelledby="navbarDropdown">
-              <li><a class="dropdown-item" href="../Pages/profile.php">Settings</a></li>
-              <li><a class="dropdown-item" href="../Pages/tracker.php">Analytics</a></li>
-              <li><a class="dropdown-item" href="#">Log Out</a></li>
+  <li><a class="dropdown-item" href="../Pages/profile.php">Settings</a></li>
+  <li><a class="dropdown-item" href="../Pages/tracker.php">Analytics</a></li>
+  <li><a class="dropdown-item" href="../Backend/logout.php">Log Out</a></li>
+</ul>
 
-
-            </ul>
           </li>
 
         </ul>

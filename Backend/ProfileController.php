@@ -75,21 +75,21 @@ class ProfileController {
 
     // Delete the user's profile
     public function deleteProfile() {
-        // Ensure the user is logged in
         if (!isset($_SESSION['user_id'])) {
             return ["error" => "User not logged in."];
         }
-
-        $userId = $_SESSION['user_id']; // Get the logged-in user's ID
+    
+        $userId = $_SESSION['user_id'];
         $this->user->id = $userId;
-
+    
+        // Delete the user's account
         if ($this->user->delete()) {
-            // Logout the user after deleting their account
-            session_destroy();
-            return ["success" => "Profile deleted successfully."];
+            session_destroy(); // Destroy session after deletion
+            return ["success" => "Account deleted successfully."];
         } else {
-            return ["error" => "Failed to delete profile."];
+            return ["error" => "Failed to delete account."];
         }
     }
 }
+
 ?>

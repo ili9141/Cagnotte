@@ -1,7 +1,12 @@
+
+
 <?php
 // Start the session
 session_start();
-
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login page if not logged in
+    header("Location: ../Pages/login.php");
+    exit;}
 // Include the ProfileController
 require_once '../Backend/ProfileController.php';
 
@@ -45,6 +50,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
               </div>";
     }
 }
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_account'])) {
+    $deleteResult = $profileController->deleteProfile();
+
+    if (isset($deleteResult['success'])) {
+        // Redirect to login page after successful deletion
+        header("Location: ../Pages/login.php");
+        exit;
+    } else {
+        echo "<div class='alert alert-danger alert-dismissible fade show' role='alert'>
+                {$deleteResult['error']}
+                <button type='button' class='btn-close' data-bs-dismiss='alert' aria-label='Close'></button>
+              </div>";
+    }
+}
+
 ?>
 
 
@@ -123,8 +144,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <!-- Delete Account Button -->
                     <div class="text-center mt-4">
-                        <a href="delete_account.php" class="btn btn-danger">Delete Account</a>
-                    </div>
+    <form method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.')">
+        <button type="submit" name="delete_account" class="btn btn-danger">Delete Account</button>
+    </form>
+</div>
+
                 </div>
             </div>
         </div>

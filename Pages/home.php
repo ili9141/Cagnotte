@@ -1,5 +1,15 @@
+<?php
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    // Redirect to login page if not logged in
+    header("Location: ../Pages/login.php");
+    exit;
+}
+?>
 <?php include('../components/important-header.php'); ?>
 <?php include('../components/navb.php'); ?>
+
+
 
 <div class="mt-5 mb-5"></div>
 

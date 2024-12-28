@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION['user_id'])) {
+  // Redirect to login page if not logged in
+  header("Location: ../Pages/login.php");
+  exit;}
 $user_id = $_SESSION['user_id']; // Ensure user_id is available in the session
 // Include necessary files
 include('../components/important-header.php');
