@@ -5,11 +5,16 @@ if (!isset($_SESSION['user_id'])) {
     header("Location: ../Pages/login.php");
     exit;
 }
+if (isset($_SESSION['user_type'])) {
+    $user_type = $_SESSION['user_type'];
+} else {
+    echo "User type is not set.";
+    exit;
+}
+
 ?>
 <?php include('../components/important-header.php'); ?>
 <?php include('../components/navb.php'); ?>
-
-
 
 <div class="mt-5 mb-5"></div>
 
@@ -115,15 +120,17 @@ if (!isset($_SESSION['user_id'])) {
     // Smooth scrolling for anchor links
     const links = document.querySelectorAll('a[href^="#"]');
     links.forEach(link => {
-        link.addEventListener('click', function (e) {
+        link.addEventListener('click', function(e) {
             e.preventDefault();
             const target = document.querySelector(this.getAttribute('href'));
-            target.scrollIntoView({ behavior: 'smooth' });
+            target.scrollIntoView({
+                behavior: 'smooth'
+            });
         });
     });
 
     // Carousel interval
-    document.addEventListener('DOMContentLoaded', function () {
+    document.addEventListener('DOMContentLoaded', function() {
         const carousel = document.querySelector('#carouselExampleIndicators');
         $(carousel).carousel({
             interval: 10000
@@ -136,76 +143,71 @@ if (!isset($_SESSION['user_id'])) {
 
 
 <style>
-
-
-
-
-.bg-image {
-    font-family: Arial, sans-serif;
-    position: relative;
-}
-
-.btn-primary {
-    background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672);
-    border-color: #ff69b4;
-}
-
-.btn-primary:hover {
-    background: linear-gradient(45deg, rgba(255, 105, 180, 0.9), rgba(255, 20, 147, 0.9));
-    transform: scale(1.05);
-}
-
-@media (max-width: 768px) {
     .bg-image {
-        height: 70vh;
+        font-family: Arial, sans-serif;
+        position: relative;
     }
 
-    .content h1 {
-        font-size: 2.5rem;
+    .btn-primary {
+        background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672);
+        border-color: #ff69b4;
     }
 
-    .content p {
-        font-size: 1.2rem;
+    .btn-primary:hover {
+        background: linear-gradient(45deg, rgba(255, 105, 180, 0.9), rgba(255, 20, 147, 0.9));
+        transform: scale(1.05);
     }
-}
 
-.overlay {
-   
-    border-radius: 15px;
-}
+    @media (max-width: 768px) {
+        .bg-image {
+            height: 70vh;
+        }
 
-.card {
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
+        .content h1 {
+            font-size: 2.5rem;
+        }
 
-.card:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    transform: scale(1.05);
-}
+        .content p {
+            font-size: 1.2rem;
+        }
+    }
 
-.card-title {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
+    .overlay {
 
-.card-text {
-    font-size: 1rem;
-    text-align: center;
-}
-.carousel-inner {
-    border-radius: 30px;
-}
+        border-radius: 15px;
+    }
 
-.bg-image {
-    border-radius: 30px;
-}
+    .card {
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        color: white;
+        border-radius: 15px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        transition: box-shadow 0.3s ease, transform 0.3s ease;
+    }
+
+    .card:hover {
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+        transform: scale(1.05);
+    }
+
+    .card-title {
+        font-size: 1.5rem;
+        margin-bottom: 0.5rem;
+    }
+
+    .card-text {
+        font-size: 1rem;
+        text-align: center;
+    }
+
+    .carousel-inner {
+        border-radius: 30px;
+    }
+
+    .bg-image {
+        border-radius: 30px;
+    }
 </style>
-
-

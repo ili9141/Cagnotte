@@ -1,12 +1,13 @@
-
-
 <?php
 // Start the session
 session_start();
 if (!isset($_SESSION['user_id'])) {
     // Redirect to login page if not logged in
     header("Location: ../Pages/login.php");
-    exit;}
+    exit;
+}
+
+$user_type = $_SESSION['user_type'];
 // Include the ProfileController
 require_once '../Backend/ProfileController.php';
 
@@ -77,7 +78,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_account'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="../Assets/Styles/styles.css">
-    
+
 </head>
 
 <body>
@@ -144,10 +145,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_account'])) {
 
                     <!-- Delete Account Button -->
                     <div class="text-center mt-4">
-    <form method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.')">
-        <button type="submit" name="delete_account" class="btn btn-danger">Delete Account</button>
-    </form>
-</div>
+                        <form method="POST" onsubmit="return confirm('Are you sure you want to delete your account? This action cannot be undone.')">
+                            <button type="submit" name="delete_account" class="btn btn-danger">Delete Account</button>
+                        </form>
+                    </div>
 
                 </div>
             </div>
@@ -159,8 +160,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_account'])) {
     <script>
         // JavaScript to show the update form when the button is clicked
         document.querySelector('.show-update-form').addEventListener('click', function() {
-            document.querySelector('.update-form').style.display = 'block';  // Show the update form
-            this.style.display = 'none';  // Hide the "Update Information" button
+            document.querySelector('.update-form').style.display = 'block'; // Show the update form
+            this.style.display = 'none'; // Hide the "Update Information" button
         });
 
         // Automatically hide the temporary message after 5 seconds (delay adjusted)

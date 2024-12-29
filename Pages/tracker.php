@@ -3,7 +3,9 @@ session_start();
 if (!isset($_SESSION['user_id'])) {
   // Redirect to login page if not logged in
   header("Location: ../Pages/login.php");
-  exit;}
+  exit;
+}
+$user_type = $_SESSION['user_type'];
 $user_id = $_SESSION['user_id']; // Ensure user_id is available in the session
 // Include necessary files
 include('../components/important-header.php');
@@ -15,47 +17,63 @@ $db = new Database();
 $conn = $db->getConnection();
 
 // Prepare the query to get the sum of expenses per category
-$query = "
+$query_expenses = "
     SELECT categories.name AS category_name, SUM(expenses.amount) AS total_expenses
     FROM expenses
     JOIN categories ON expenses.category_id = categories.id
     WHERE expenses.user_id = :user_id
     GROUP BY categories.name
 ";
-$stmt = $conn->prepare($query);
+$stmt_expenses = $conn->prepare($query_expenses);
+$stmt_expenses->bindParam(':user_id', $user_id);
+$stmt_expenses->execute();
+$category_expenses = $stmt_expenses->fetchAll(PDO::FETCH_ASSOC);
 
-// Assuming user_id is stored in the session (adjust as needed)
-$user_id = $_SESSION['user_id']; // Replace with the actual user ID
+// Fetch the category goals
+$query_goals = "
+    SELECT categories.name AS category_name, category_goals.category_limit
+    FROM category_goals
+    JOIN categories ON category_goals.category_id = categories.id
+    WHERE category_goals.user_id = :user_id
+";
+$stmt_goals = $conn->prepare($query_goals);
+$stmt_goals->bindParam(':user_id', $user_id);
+$stmt_goals->execute();
+$category_goals = $stmt_goals->fetchAll(PDO::FETCH_ASSOC);
 
-$stmt->bindParam(':user_id', $user_id);
-$stmt->execute();
+// Merge expenses and goals into a single array
+$category_data = [];
+foreach ($category_expenses as $category) {
+  $category_data[$category['category_name']] = [
+    'expense' => $category['total_expenses'],
+    'goal' => 0, // Default goal value
+  ];
+}
 
-// Fetch the results
-$category_expenses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+foreach ($category_goals as $goal) {
+  if (isset($category_data[$goal['category_name']])) {
+    $category_data[$goal['category_name']]['goal'] = $goal['category_limit'];
+  }
+}
 
-// Prepare the data for JavaScript (you can pass it directly as JSON)
+// Prepare data for JavaScript
 $categories = [];
 $expenses = [];
-$colors = ['#f94144', '#f3722c', '#f9c74f', '#90be6d', '#577590']; // Predefined color list
-$category_colors = []; // Will store category names with corresponding colors
+$goals = [];
+$category_colors = ['#f94144', '#f3722c', '#f9c74f', '#90be6d', '#577590']; // Predefined color list
 
-foreach ($category_expenses as $index => $category) {
-  $categories[] = $category['category_name'];
-  $expenses[] = $category['total_expenses'];
-  // Assign a color for each category, cycling through the predefined colors
-  $category_colors[] = [
-    'category' => $category['category_name'],
-    'color' => $colors[$index % count($colors)], // Cycle through colors if more than 5 categories
-  ];
+foreach ($category_data as $category_name => $data) {
+  $categories[] = $category_name;
+  $expenses[] = $data['expense'];
+  $goals[] = $data['goal'];
 }
 
 // Convert PHP arrays to JSON for JavaScript use
 $categories_json = json_encode($categories);
 $expenses_json = json_encode($expenses);
+$goals_json = json_encode($goals);
 $category_colors_json = json_encode($category_colors);
 ?>
-
-
 
 <div class="mt-5 mb-5"></div>
 
@@ -160,28 +178,36 @@ $category_colors_json = json_encode($category_colors);
         </form>
       </div>
     </div>
-
   </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-  // Retrieve the categories, expenses, and category colors data from PHP
+  // Retrieve the categories, expenses, and goals data from PHP
   const categories = <?php echo $categories_json; ?>;
   const expenses = <?php echo $expenses_json; ?>;
-  const categoryColors = <?php echo $category_colors_json; ?>;
+  const goals = <?php echo $goals_json; ?>; // The goal values
+  const categoryColors = <?php echo $category_colors_json; ?>; // Predefined colors
 
   // Set up the chart
   const ctx = document.getElementById('expensesChart').getContext('2d');
   const expensesChart = new Chart(ctx, {
     type: 'bar',
     data: {
-      labels: categories, // Categories from the database
+      labels: categories,
       datasets: [{
-        label: 'Expenses',
-        data: expenses, // Expenses from the database
-        backgroundColor: categoryColors.map(c => c.color), // Use the dynamic colors for each category
-      }],
+          label: 'Expenses',
+          data: expenses,
+          backgroundColor: categoryColors, // Use the dynamic colors for each category
+        },
+        {
+          label: 'Goals',
+          data: goals,
+          backgroundColor: categoryColors.map(color => color + '80'), // Lighter version of the color for goals
+          borderColor: categoryColors.map(color => color + '80'),
+          borderWidth: 1,
+        }
+      ]
     },
     options: {
       responsive: true,
@@ -202,95 +228,23 @@ $category_colors_json = json_encode($category_colors);
       plugins: {
         legend: {
           position: 'top',
-          labels: {
-            // Dynamically generate the legend labels
-            generateLabels: function(chart) {
-              return categoryColors.map(c => ({
-                text: c.category,
-                fillStyle: c.color,
-                strokeStyle: c.color,
-                lineWidth: 1,
-              }));
-            },
-            font: {
-              size: 18, // Set the font size to make the text bigger
-              family: 'Arial', // Set the font family (you can choose any font)
-              weight: 'bold', // Set the font weight to bold
-              color: 'white', // Set the text color to white
-            },
-            padding: 20, // Increase the padding for better spacing
-          },
         },
       },
     },
   });
 </script>
 
-
-
-
 <?php include('../components/footer.php'); ?>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Zilla+Slab:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');
-
-  body {
-    font-family: 'Dancing Script', cursive;
-  }
-
-  .tab-content {
-    background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110));
-    border-radius: 15px;
-    padding: 20px;
-    color: azure;
-  }
-
-  .progress-bar {
-    border-radius: 10px;
-  }
-
-  .legend {
-    display: flex;
-    justify-content: center;
-    margin-top: 20px;
-  }
-
-  .legend-item {
-    display: flex;
-    align-items: center;
-    margin: 0 10px;
-  }
-
-  .legend-color {
-    width: 20px;
-    height: 20px;
-    border-radius: 5px;
-    margin-right: 10px;
-  }
-
-  canvas {
-    max-width: 100%;
-    height: auto;
-  }
-
-  .nav-tabs .nav-link {
-    background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110));
-    color: white;
-  }
-
-  .nav-tabs .nav-link.active {
-    background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672);
-    color: white;
-  }
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
 
   .custom-save-btn {
-    background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672);
-    border-color: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672);
-    color: white;
+    background-color: #f3722c;
   }
 
-  .custom-save-btn:hover {
-    background: linear-gradient(to left, rgb(4, 4, 53), rgb(8, 54, 110));
+  .btn-custom {
+    background-color: #f9c74f;
     color: white;
   }
 </style>
