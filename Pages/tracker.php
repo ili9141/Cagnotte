@@ -80,20 +80,20 @@ $category_colors_json = json_encode($category_colors);
 <div class="container py-5">
   <h1 class="text-center mb-4" style="color: white">Keep Track of Your Spendings</h1>
   <ul class="nav nav-tabs justify-content-center" id="trackerTabs" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button class="nav-link active" id="goals-tab" data-bs-toggle="tab" data-bs-target="#goals" type="button" role="tab">Goals</button>
+    <li class="nav-item " role="presentation">
+      <button class="nav-link active  btn-primary " id="goals-tab" data-bs-toggle="tab" data-bs-target="#goals" type="button" role="tab">Goals</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="graph-tab" data-bs-toggle="tab" data-bs-target="#graph" type="button" role="tab">Graph</button>
+      <button class="nav-link btn-primary" id="graph-tab" data-bs-toggle="tab" data-bs-target="#graph" type="button" role="tab">Graph</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link" id="add-expense-tab" data-bs-toggle="tab" data-bs-target="#add-expense" type="button" role="tab">Add Expense</button>
+      <button class="nav-link btn-primary " id="add-expense-tab" data-bs-toggle="tab" data-bs-target="#add-expense" type="button" role="tab">Add Expense</button>
     </li>
   </ul>
 
-  <div class="tab-content mt-4" id="trackerTabsContent">
+  <div class="tab-content mt-4 " id="trackerTabsContent">
     <!-- Goals Tab -->
-    <div class="tab-pane fade show active" id="goals" role="tabpanel">
+    <div class="tab-pane fade show active " id="goals" role="tabpanel">
       <h3>Set Your Monthly Budget</h3>
       <form method="POST" action="save_goals.php">
         <div class="mb-3">
@@ -235,16 +235,3 @@ $category_colors_json = json_encode($category_colors);
 </script>
 
 <?php include('../components/footer.php'); ?>
-
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
-
-  .custom-save-btn {
-    background-color: #f3722c;
-  }
-
-  .btn-custom {
-    background-color: #f9c74f;
-    color: white;
-  }
-</style>

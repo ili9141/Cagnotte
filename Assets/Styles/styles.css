@@ -325,12 +325,12 @@ body {
 }
 
 .btn-primary {
-    background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672);
-    border-color: #ff69b4;
+    background: linear-gradient(45deg, #4b007a, #6c04ad);
+    
 }
 
 .btn-primary:hover {
-    background: linear-gradient(45deg, rgba(255, 105, 180, 0.9), rgba(255, 20, 147, 0.9));
+    background:linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110));
     transform: scale(1.05);
 }
 

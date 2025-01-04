@@ -16,13 +16,13 @@ if (isset($_SESSION['user_type'])) {
 <?php include('../components/important-header.php'); ?>
 <?php include('../components/navb.php'); ?>
 
-<div class="mt-5 mb-5"></div>
+
 
 <!-- Slider Section -->
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="max-width: 90vw; margin: 0 auto;">
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style=" margin: 0 auto;">
     <div class="carousel-inner" style="height: 100vh;">
         <!-- Slide 1 -->
-        <div class="carousel-item active bg-image" style="background-image: url('../Assets/Images/banner1.png'); background-size: cover; background-position: center;">
+        <div class="carousel-item active bg-image" style="background-image: url('../Assets/Images/banner04.jpg'); background-size: cover; background-position: center;">
             <div class="overlay w-100 h-100" style="border-radius: 15px;"></div>
             <div class="content position-relative text-center text-white d-flex flex-column justify-content-center" style="font-family: 'Zilla Slab', cursive;">
                 <a href="#features" class="btn btn-primary btn-lg mt-3">Join Us Now</a>
@@ -30,7 +30,7 @@ if (isset($_SESSION['user_type'])) {
         </div>
 
         <!-- Slide 2 -->
-        <div class="carousel-item bg-image" style="background-image: url('../Assets/Images/banner2.png'); background-size: cover; background-position: center;">
+        <div class="carousel-item bg-image" style="background-image: url('../Assets/Images/banner02.jpg'); background-size: cover; background-position: center;">
             <div class="overlay w-100 h-100" style="border-radius: 15px;"></div>
             <div class="content position-relative text-center text-white d-flex flex-column justify-content-center" style="font-family: 'Zilla Slab', cursive;">
                 <a href="#features" class="btn btn-primary btn-lg mt-3">Join Us Now</a>
@@ -38,7 +38,7 @@ if (isset($_SESSION['user_type'])) {
         </div>
 
         <!-- Slide 3 -->
-        <div class="carousel-item bg-image" style="background-image: url('../Assets/Images/banner3.png'); background-size: cover; background-position: center;">
+        <div class="carousel-item bg-image" style="background-image: url('../Assets/Images/banner03.jpg'); background-size: cover; background-position: center;">
             <div class="overlay w-100 h-100" style="border-radius: 15px;"></div>
             <div class="content position-relative text-center text-white d-flex flex-column justify-content-center" style="font-family: 'Zilla Slab', cursive;">
                 <a href="#features" class="btn btn-primary btn-lg mt-3">Join Us Now</a>
