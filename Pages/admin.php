@@ -16,6 +16,14 @@ if (isset($_SESSION['user_type'])) {
 
 ?>
 
+<?php if (isset($_GET['message'])): ?>
+    <div class="alert alert-info alert-dismissible fade show" role="alert">
+        <?= htmlspecialchars($_GET['message']) ?>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+<?php endif; ?>
+
+
 
   
 
@@ -64,7 +72,11 @@ if (isset($_SESSION['user_type'])) {
                 <td><?= htmlspecialchars($user['email']) ?></td>
                 <td><?= htmlspecialchars($user['created_at']) ?></td>
                 <td>
-                  <a href="../Backend/edit_user.php?id=<?= $user['id'] ?>" class="btn btn-warning">Edit</a>
+                <a href="../Backend/update.php?id=<?= $user['id'] ?>" class="btn btn-warning">Edit</a>
+
+                
+
+
                   <a href="../Backend/delete_user.php?id=<?= $user['id'] ?>" class="btn btn-danger">Delete</a>
                   <a href="../Backend/make_admin.php?id=<?= $user['id'] ?>" class="btn btn-success">Make Admin</a>
                 </td>
@@ -74,6 +86,31 @@ if (isset($_SESSION['user_type'])) {
         </table>
       </div>
     </div>
+
+    <!-- edit  -->
+
+    <div id="edit-form-container" style="display: none;" class="mt-4">
+    <h4>Edit User</h4>
+    <form method="POST" action="../Backend/update.php" class="border p-4 rounded">
+        <input type="hidden" id="edit-user-id" name="user_id">
+        <div class="mb-3">
+            <label for="edit-name" class="form-label">Name</label>
+            <input type="text" id="edit-name" name="name" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="edit-email" class="form-label">Email</label>
+            <input type="email" id="edit-email" name="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="edit-password" class="form-label">Password (Leave empty to keep current)</label>
+            <input type="password" id="edit-password" name="password" class="form-control">
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+        <button type="button" class="btn btn-secondary" onclick="hideEditForm()">Cancel</button>
+    </form>
+</div>
+
+    
 
     <!-- Expense Management Section -->
     <div id="expense-management" class="section-content">
@@ -335,6 +372,26 @@ if (isset($_SESSION['user_type'])) {
     // Fetch users when the page loads
     document.addEventListener('DOMContentLoaded', fetchUsers);
   </script>
+
+<script>
+    // Afficher le formulaire d'édition avec les données de l'utilisateur
+    function showEditForm(user) {
+        document.getElementById('edit-user-id').value = user.id;
+        document.getElementById('edit-name').value = user.name;
+        document.getElementById('edit-email').value = user.email;
+        document.getElementById('edit-password').value = ""; // Reset the password field
+        document.getElementById('edit-form-container').style.display = 'block';
+        window.scrollTo(0, document.getElementById('edit-form-container').offsetTop);
+    }
+
+    // Masquer le formulaire d'édition
+    function hideEditForm() {
+        document.getElementById('edit-form-container').style.display = 'none';
+    }
+</script>
+
+
+
 
 </body>
 

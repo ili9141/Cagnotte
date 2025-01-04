@@ -164,23 +164,32 @@ class User
         session_destroy();
     }
 
-    // Add the update method
+    
+
+    // Add the edit method
     public function update()
-    {
-        $query = "UPDATE " . $this->table . " 
-                  SET name = :name, email = :email, password = :password 
-                  WHERE id = :id";
-        $stmt = $this->conn->prepare($query);
+{
+    $query = "UPDATE " . $this->table . " 
+              SET name = :name, email = :email" . 
+              ($this->password ? ", password = :password" : "") . " 
+              WHERE id = :id";
 
-        $hashedPassword = $this->password ? password_hash($this->password, PASSWORD_DEFAULT) : null;
+    $stmt = $this->conn->prepare($query);
 
-        $stmt->bindParam(':name', $this->name);
-        $stmt->bindParam(':email', $this->email);
-        $stmt->bindParam(':id', $this->id);
-        $stmt->bindValue(':password', $hashedPassword);
+    $stmt->bindParam(':name', $this->name);
+    $stmt->bindParam(':email', $this->email);
+    $stmt->bindParam(':id', $this->id);
 
-        return $stmt->execute();
+    if ($this->password) {
+        $hashedPassword = password_hash($this->password, PASSWORD_DEFAULT);
+        $stmt->bindParam(':password', $hashedPassword);
     }
+
+    return $stmt->execute();
+}
+
+
+
 
     // Add the delete method
     public function delete()
@@ -190,4 +199,9 @@ class User
         $stmt->bindParam(':id', $this->id);
         return $stmt->execute();
     }
+
+
+
+
+
 }
