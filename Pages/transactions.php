@@ -17,11 +17,7 @@ if (!isset($_SESSION['user_id'])) {
     <title>Expense History</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110));
-            color: white;
-            font-family: Arial, sans-serif;
-        }
+        
         .transaction-card {
             border-radius: 10px;
             background: #fff;

@@ -89,30 +89,7 @@ if (isset($_SESSION['user_type'])) {
                 </div>
             </div>
         </div>
-        <div class="col-md-4 mb-4">
-            <div class="card" style="background-image: url('../Assets/Images/card4.jpg'); background-size: cover; background-position: center; border-radius: 15px;">
-                <div class="card-body text-white d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
-                    <h5 class="card-title">Card Title 4</h5>
-                    <p class="card-text">Description for card 4</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card" style="background-image: url('../Assets/Images/card5.jpg'); background-size: cover; background-position: center; border-radius: 15px;">
-                <div class="card-body text-white d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
-                    <h5 class="card-title">Card Title 5</h5>
-                    <p class="card-text">Description for card 5</p>
-                </div>
-            </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card" style="background-image: url('../Assets/Images/card6.jpg'); background-size: cover; background-position: center; border-radius: 15px;">
-                <div class="card-body text-white d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
-                    <h5 class="card-title">Card Title 6</h5>
-                    <p class="card-text">Description for card 6</p>
-                </div>
-            </div>
-        </div>
+       
     </div>
 </section>
 

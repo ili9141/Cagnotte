@@ -7,10 +7,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  <link rel="stylesheet" href="../Assets/Styles/styles.css">
+  
 </head>
 
-<body>
+<body style="background: linear-gradient(45deg,#0C134F, #1D267D , #5C469C,#D4ADFC);">
 
   <section class="h-100 gradient-form mt-5 ">
     <div class="container py-5 h-100">
