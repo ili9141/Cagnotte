@@ -54,21 +54,26 @@
             <ul class="dropdown-menu bg-danger" aria-labelledby="navbarDropdown">
               <li><a class="dropdown-item" href="../Pages/profile.php">Settings</a></li>
               <li><a class="dropdown-item" href="../Pages/tracker.php">Analytics</a></li>
+              <li><a class="dropdown-item" href="../Pages/History.php">History</a></li>
               <li><a class="dropdown-item" href="../Backend/logout.php">Log Out</a></li>
             </ul>
           </li>
 
           <!-- Admin-only navbar item -->
-          <?php if (isset($_SESSION['user_type']) && $_SESSION['user_type'] === 'admin'): ?>
-          <li class="nav-item text-center mx-2 mx-lg-1">
-            <a class="nav-link" href="../Pages/admin.php">
-              <div>
-                <i class="fas fa-cogs fa-lg mb-1"></i>
-              </div>
-              Admin Dashboard
-            </a>
-          </li>
-          <?php endif; ?>
+          <?php
+          // Ensure $user_type is defined to avoid warnings
+          $user_type = isset($_SESSION['user_type']) ? $_SESSION['user_type'] : null;
+          if ($user_type === 'admin') {
+          ?>
+            <li class="nav-item text-center mx-2 mx-lg-1">
+              <a class="nav-link" href="../Pages/admin.php">
+                <div>
+                  <i class="fas fa-cogs fa-lg mb-1"></i>
+                </div>
+                Admin Dashboard
+              </a>
+            </li>
+          <?php } ?>
         </ul>
       </div>
     </div>
@@ -76,32 +81,3 @@
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script>
- document.addEventListener("DOMContentLoaded", function () {
-    const notificationBadge = document.getElementById("notificationBadge");
-    const notificationMenu = document.getElementById("notificationMenu");
-
-    // Fetch notifications from the server
-    function fetchNotifications() {
-        fetch("../Backend/get_notifications.php")
-            .then((response) => response.text())
-            .then((data) => {
-                // Separate notifications and badge count using <!--END-->
-                const parts = data.split('<!--END-->');
-                const notificationsHtml = parts[0];
-                const notificationCount = parts[1];
-
-                // Update badge count
-                notificationBadge.textContent = notificationCount;
-
-                // Update notification dropdown menu
-                notificationMenu.innerHTML = notificationsHtml;
-            })
-            .catch((error) => console.error("Fetch error:", error));
-    }
-
-    // Fetch notifications on page load
-    fetchNotifications();
-});
-
-</script>
