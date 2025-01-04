@@ -80,20 +80,36 @@ $category_colors_json = json_encode($category_colors);
 <div class="container py-5">
   <h1 class="text-center mb-4" style="color: white">Keep Track of Your Spendings</h1>
   <ul class="nav nav-tabs justify-content-center" id="trackerTabs" role="tablist">
-    <li class="nav-item " role="presentation">
-      <button class="nav-link active  btn-primary " id="goals-tab" data-bs-toggle="tab" data-bs-target="#goals" type="button" role="tab">Goals</button>
+    <li class="nav-item" role="presentation">
+      <button class="nav-link active" id="goals-tab" data-bs-toggle="tab" data-bs-target="#goals" type="button" role="tab">Goals</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link btn-primary" id="graph-tab" data-bs-toggle="tab" data-bs-target="#graph" type="button" role="tab">Graph</button>
+      <button class="nav-link" id="graph-tab" data-bs-toggle="tab" data-bs-target="#graph" type="button" role="tab">Graph</button>
     </li>
     <li class="nav-item" role="presentation">
-      <button class="nav-link btn-primary " id="add-expense-tab" data-bs-toggle="tab" data-bs-target="#add-expense" type="button" role="tab">Add Expense</button>
+      <button class="nav-link" id="add-expense-tab" data-bs-toggle="tab" data-bs-target="#add-expense" type="button" role="tab">Add Expense</button>
     </li>
+    <li class="nav-item ms-auto">
+    <form action="../Backend/generate_report.php" method="post" class="d-flex align-items-center">
+        <div class="form-group d-flex align-items-center me-3">
+            <label for="from_date" class="me-2 mb-0">From:</label>
+            <input type="date" class="form-control" id="from_date" name="from_date">
+        </div>
+        
+        <div class="form-group d-flex align-items-center me-3">
+            <label for="to_date" class="me-2 mb-0">To:</label>
+            <input type="date" class="form-control" id="to_date" name="to_date">
+        </div>
+        
+        <button type="submit" class="btn btn-primary">Generate Report</button>
+    </form>
+</li>
+
   </ul>
 
-  <div class="tab-content mt-4 " id="trackerTabsContent">
+  <div class="tab-content mt-4" id="trackerTabsContent">
     <!-- Goals Tab -->
-    <div class="tab-pane fade show active " id="goals" role="tabpanel">
+    <div class="tab-pane fade show active" id="goals" role="tabpanel">
       <h3>Set Your Monthly Budget</h3>
       <form method="POST" action="save_goals.php">
         <div class="mb-3">
@@ -235,3 +251,21 @@ $category_colors_json = json_encode($category_colors);
 </script>
 
 <?php include('../components/footer.php'); ?>
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400..800;1,400..800&display=swap');
+
+  .custom-save-btn {
+    background-color: #f3722c;
+  }
+
+  .btn-custom {
+    background-color: #f9c74f;
+    color: white;
+  }
+
+#trackerTabs .nav-item {
+  padding-right: 10px; /* Adds spacing between the tabs */
+}
+
+</style>
