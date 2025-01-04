@@ -163,67 +163,58 @@ footer a:hover {
       font-size: 0.75rem;
   }
 }
- /* Hover dropdown for Profile */
- .nav-item.dropdown:hover .dropdown-menu {
-  display: block;
+ /* Profile dropdown behavior */
+.nav-item .dropdown-menu {
+  display: none; /* Hidden by default */
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110)); /* Same as navbar background */
+  border-radius: 8px;
+  z-index: 1050;
   margin-top: 8px;
-  /* Adjust the space between the dropdown and the navbar */
+  padding: 0.5rem 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for elevation */
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
 }
 
-/* Ensures the Home and Notifications items are vertically centered */
+/* Show dropdown on hover */
+.nav-item.dropdown:hover .dropdown-menu,
+.nav-item.dropdown .dropdown-menu:hover {
+  display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Dropdown menu links */
+.dropdown-menu a {
+  color: #ffffff; /* White text for contrast */
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  display: block;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.dropdown-menu a:hover {
+  background-color: #1D267D; /* Hover effect with a slightly different tone */
+  color: #ffffff;
+}
+
+/* Adjust position of navbar items (Home, Notifications) */
 .navbar-nav .nav-item {
   display: flex;
   align-items: center;
-  height: 100%;
 }
 
-/* Centers the icons and text inside the navigation items */
-.navbar-nav .nav-link {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-/* Adjust navbar and dropdown colors */
 .navbar-dark .navbar-nav .nav-link {
   color: #ffffff;
 }
 
 .navbar-dark .navbar-nav .nav-link:hover {
   color: #d4adfc;
-}
-
-.navbar-nav .nav-item .dropdown-menu {
-  background-color: #0C134F !important;
-  /* Matches navbar background color */
-}
-
-.dropdown-menu a {
-  color: white;
-}
-
-.dropdown-menu a:hover {
-  background-color: #1D267D;
-  /* Slight hover effect on menu items */
-}
-
-/* Adjust position of navbar items (Home, Notifications) */
-.navbar-nav.ms-auto {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 100%;
-}
-
-/* Adjust margin for dropdown items and ensure consistent icon positioning */
-.navbar-nav .nav-item .nav-link .d-flex {
-  align-items: center;
-}
-
-.nav-item .nav-link {
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
 }
 
 /* Ensure the icons and text (Notifications and Home) are centered properly */
@@ -242,21 +233,67 @@ footer a:hover {
   /* Adjusted padding for better alignment */
 }
 
-/* Fixes dropdown menu below profile icon */
-.nav-item.dropdown .dropdown-menu {
-  position: absolute;
-  top: 100%;
-  /* Positions it directly below the icon */
-  left: -100px;
-  right: 0;
-  border-radius: 10px;
-}
-.section-content {
-  display: none;
+/* Profile dropdown behavior */
+.nav-item.dropdown {
+  position: relative;
 }
 
-.section-content.active {
+/* Dropdown menu styling */
+.nav-item .dropdown-menu {
+  display: none; /* Hidden by default */
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: #0C134F; /* Matches navbar background color */
+  border-radius: 8px;
+  z-index: 1050;
+  margin-top: 0;
+  padding: 0.5rem 0;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+  opacity: 0;
+  visibility: hidden;
+}
+
+/* Show dropdown on hover */
+.nav-item.dropdown:hover .dropdown-menu,
+.nav-item.dropdown .dropdown-menu:hover {
   display: block;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Dropdown menu links */
+.dropdown-menu a {
+  color: white;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-menu a:hover {
+  background-color: #1D267D; /* Slight hover effect on menu items */
+  color: #ffffff;
+}
+
+/* Ensure smooth dropdown appearance */
+.nav-item .dropdown-menu {
+  transition: all 0.2s ease-in-out;
+}
+
+/* Adjust navbar items */
+.navbar-nav .nav-item {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-dark .navbar-nav .nav-link {
+  color: #ffffff;
+}
+
+.navbar-dark .navbar-nav .nav-link:hover {
+  color: #d4adfc;
 }
 
 /* Updated Button Styles */
