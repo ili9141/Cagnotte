@@ -73,12 +73,13 @@ if (isset($_SESSION['user_type'])) {
               <td><?= htmlspecialchars($user['created_at']) ?></td>
               <td>
                 <a href="../Backend/update.php?id=<?= $user['id'] ?>" class="btn btn-warning">Edit</a>
-
-
-
-
                 <a href="../Backend/delete_user.php?id=<?= $user['id'] ?>" class="btn btn-danger">Delete</a>
-                <a href="../Backend/make_admin.php?id=<?= $user['id'] ?>" class="btn btn-success">Make Admin</a>
+                <?php if ($user['type'] === 'admin'): ?>
+                  <button class="btn btn-success disabled" disabled>Already Admin</button>
+                <?php else: ?>
+                  <a href="../Backend/make_admin.php?id=<?= $user['id'] ?>" class="btn btn-success">Make Admin</a>
+                <?php endif; ?>
+              </td>
               </td>
             </tr>
           <?php endforeach; ?>

@@ -1,10 +1,11 @@
 <?php
+session_start();
 require_once 'db.php';
 
 // Ensure the user is logged in and has the proper session
 if (!isset($_SESSION['user_id']) || $_SESSION['user_type'] !== 'admin') {
     // Redirect to login or error page if not an admin
-    header("Location: login.php");
+    header("Location: ../Pages/login.php");
     exit;
 }
 
@@ -21,15 +22,15 @@ if (isset($_GET['id'])) {
 
     if ($stmt->execute()) {
         // Redirect back to the user management page with success message
-        header("Location: admin_dashboard.php?message=User made Admin successfully");
+        header("Location: ../Pages/admin.php?message=User made Admin successfully");
         exit;
     } else {
         // Error message if the update fails
-        header("Location: admin_dashboard.php?message=Error updating user to admin");
+        header("Location: ../Pages/admin.php?message=Error updating user to admin");
         exit;
     }
 } else {
     // Redirect if no user id is provided
-    header("Location: admin_dashboard.php?message=User ID missing");
+    header("Location: ../Pages/admin.php?message=User ID missing");
     exit;
 }
