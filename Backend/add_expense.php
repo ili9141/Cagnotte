@@ -28,31 +28,89 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (empty($expense_date) || empty($category_id) || empty($amount)) {
         $_SESSION['message'] = "All fields are required.";
     } else {
-        // Prepare SQL query to insert the expense
-        $query = "INSERT INTO expenses (user_id, amount, description, category_id, expense_date) 
-                  VALUES (:user_id, :amount, :description, :category_id, :expense_date)";
-
-        if ($stmt = $conn->prepare($query)) {
-            // Bind parameters
+        try {
+            // Insert expense into `expenses` table
+            $query = "INSERT INTO expenses (user_id, amount, description, category_id, expense_date) 
+                      VALUES (:user_id, :amount, :description, :category_id, :expense_date)";
+            $stmt = $conn->prepare($query);
             $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
             $stmt->bindParam(':amount', $amount, PDO::PARAM_STR);
             $stmt->bindParam(':description', $description, PDO::PARAM_STR);
             $stmt->bindParam(':category_id', $category_id, PDO::PARAM_INT);
             $stmt->bindParam(':expense_date', $expense_date, PDO::PARAM_STR);
+            $stmt->execute();
 
-            // Execute the statement
-            if ($stmt->execute()) {
-                $_SESSION['message'] = "Expense added successfully!";
-            } else {
-                $_SESSION['message'] = "Error adding expense. Please try again.";
+            // Update expense history logic
+            $month = date('Y-m', strtotime($expense_date));
+
+            // Fetch current month's aggregated data
+            $query = "
+                SELECT 
+                    DATE_FORMAT(expense_date, '%Y-%m') AS month,
+                    categories.name AS category_name,
+                    SUM(amount) AS total_expense
+                FROM expenses
+                JOIN categories ON expenses.category_id = categories.id
+                WHERE user_id = :user_id AND DATE_FORMAT(expense_date, '%Y-%m') = :month
+                GROUP BY month, category_id";
+            $stmt = $conn->prepare($query);
+            $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+            $stmt->bindParam(':month', $month);
+            $stmt->execute();
+            $monthly_data = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+            // Insert or update `expense_history`
+            foreach ($monthly_data as $data) {
+                $category_name = $data['category_name'];
+                $total_expense = $data['total_expense'];
+
+                // Check if entry exists for the month
+                $check_query = "SELECT * FROM expense_history WHERE user_id = :user_id AND month = :month";
+                $check_stmt = $conn->prepare($check_query);
+                $check_stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+                $check_stmt->bindParam(':month', $month);
+                $check_stmt->execute();
+                $existing_entry = $check_stmt->fetch(PDO::FETCH_ASSOC);
+
+                if ($existing_entry) {
+                    // Update category expenses and recalculate the total expenses
+                    $category_expenses = json_decode($existing_entry['category_expenses'], true);
+                    $category_expenses[$category_name] = $total_expense;
+
+                    // Recalculate total expenses
+                    $new_total_expenses = array_sum($category_expenses);
+
+                    $category_expenses_json = json_encode($category_expenses);
+
+                    $update_query = "UPDATE expense_history 
+                                     SET category_expenses = :category_expenses, total_expenses = :total_expenses, updated_at = NOW() 
+                                     WHERE id = :id";
+                    $update_stmt = $conn->prepare($update_query);
+                    $update_stmt->bindParam(':category_expenses', $category_expenses_json);
+                    $update_stmt->bindParam(':total_expenses', $new_total_expenses);
+                    $update_stmt->bindParam(':id', $existing_entry['id'], PDO::PARAM_INT);
+                    $update_stmt->execute();
+                } else {
+                    // Insert new record
+                    $category_expenses = [$category_name => $total_expense];
+                    $category_expenses_json = json_encode($category_expenses);
+
+                    $insert_query = "INSERT INTO expense_history (user_id, month, total_expenses, category_expenses) 
+                                     VALUES (:user_id, :month, :total_expenses, :category_expenses)";
+                    $insert_stmt = $conn->prepare($insert_query);
+                    $insert_stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+                    $insert_stmt->bindParam(':month', $month);
+                    $insert_stmt->bindParam(':total_expenses', $total_expense);
+                    $insert_stmt->bindParam(':category_expenses', $category_expenses_json);
+                    $insert_stmt->execute();
+                }
             }
-        } else {
-            $_SESSION['message'] = "Failed to prepare the SQL query.";
+
+            $_SESSION['message'] = "Expense added and history updated successfully!";
+        } catch (Exception $e) {
+            $_SESSION['message'] = "Failed to add expense: " . $e->getMessage();
         }
     }
-
-    // Close the connection
-    $conn = null;
 
     // Redirect back to tracker page to display the message
     header("Location: ../pages/tracker.php");
