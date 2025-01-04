@@ -18,29 +18,18 @@ if (!$conn) {
 // Fetch expense history for the logged-in user
 $user_id = $_SESSION['user_id'];
 
-// Fetch expense history
+// Fetch expense history, considering year and month
 $query = "SELECT * FROM expense_history WHERE user_id = :user_id ORDER BY month DESC";
 $stmt = $conn->prepare($query);
 $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
 $expense_history = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Fetch the user's monthly budgets
-$query = "SELECT DATE_FORMAT(created_at, '%Y-%m') AS month, monthly_budget FROM goals WHERE user_id = :user_id";
-$stmt = $conn->prepare($query);
-$stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
-$stmt->execute();
-$monthly_budgets = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-// Map monthly budgets by month for quick access
-$monthly_budget_map = [];
-foreach ($monthly_budgets as $budget) {
-    $monthly_budget_map[$budget['month']] = $budget['monthly_budget'];
-}
-
-// Fetch category goals
+// Fetch category goals with year and month
 $query = "
-    SELECT categories.name AS category_name, category_goals.category_limit
+    SELECT DATE_FORMAT(category_goals.created_at, '%Y-%m') AS goal_month, 
+           categories.name AS category_name, 
+           category_goals.category_limit
     FROM category_goals
     JOIN categories ON category_goals.category_id = categories.id
     WHERE category_goals.user_id = :user_id
@@ -50,10 +39,12 @@ $stmt->bindParam(':user_id', $user_id, PDO::PARAM_INT);
 $stmt->execute();
 $category_goals = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Map category goals as a key-value array for easy access
+// Map category goals by `goal_month` and `category_name`
 $category_goals_map = [];
 foreach ($category_goals as $goal) {
-    $category_goals_map[$goal['category_name']] = $goal['category_limit'];
+    $goal_month = $goal['goal_month'];
+    $category_name = $goal['category_name'];
+    $category_goals_map[$goal_month][$category_name] = $goal['category_limit'];
 }
 ?>
 
@@ -133,27 +124,13 @@ foreach ($category_goals as $goal) {
         <?php if (count($expense_history) > 0): ?>
             <?php foreach ($expense_history as $month_data): ?>
                 <?php
-                $month = $month_data['month'];
+                $month = $month_data['month']; // Example: 2025-01
                 $total_spent = $month_data['total_expenses'];
-                if (isset($monthly_budget_map[$month])) {
-                    $monthly_budget = $monthly_budget_map[$month];
-                    $difference = $monthly_budget - $total_spent;
-                    $difference_class = $difference >= 0 ? 'positive' : 'negative';
-                } else {
-                    $monthly_budget = null;
-                }
                 ?>
                 <div class="transaction-card">
                     <div class="d-flex justify-content-between align-items-center">
                         <div>
                             <div class="transaction-header"><?php echo htmlspecialchars($month); ?></div>
-                            <?php if ($monthly_budget === null): ?>
-                                <div class="no-goal">No goal set</div>
-                            <?php else: ?>
-                                <div class="amount <?php echo $difference_class; ?>">
-                                    <?php echo $difference >= 0 ? '+$' . number_format($difference, 2) : '-$' . number_format(abs($difference), 2); ?>
-                                </div>
-                            <?php endif; ?>
                         </div>
                         <button class="btn btn-primary btn-sm btn-toggle" data-month="<?php echo $month; ?>">Details</button>
                     </div>
@@ -170,8 +147,9 @@ foreach ($category_goals as $goal) {
                             <ul class="list-group mt-3">
                                 <?php foreach ($categories as $category => $amount): ?>
                                     <?php
-                                    if (isset($category_goals_map[$category])) {
-                                        $goal_difference = $category_goals_map[$category] - $amount;
+                                    // Check for category-specific goals for the current month
+                                    if (isset($category_goals_map[$month][$category])) {
+                                        $goal_difference = $category_goals_map[$month][$category] - $amount;
                                         $goal_class = $goal_difference >= 0 ? 'positive' : 'negative';
                                     } else {
                                         $goal_difference = null;
