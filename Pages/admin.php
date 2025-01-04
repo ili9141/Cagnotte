@@ -17,183 +17,234 @@ if (isset($_SESSION['user_type'])) {
 ?>
 
 <?php if (isset($_GET['message'])): ?>
-    <div class="alert alert-info alert-dismissible fade show" role="alert">
-        <?= htmlspecialchars($_GET['message']) ?>
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-    </div>
+  <div class="alert alert-info alert-dismissible fade show" role="alert">
+    <?= htmlspecialchars($_GET['message']) ?>
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+  </div>
 <?php endif; ?>
 
 
 
-  
 
 
-  <?php include('../components/important-header.php'); ?>
-  <?php include('../components/navb.php'); ?>
 
-  <div class="container mt-5">
-    <h2 class="text-center">Admin Dashboard</h2>
+<?php include('../components/important-header.php'); ?>
+<?php include('../components/navb.php'); ?>
 
-    <!-- Navigation Tabs -->
-    <ul class="nav nav-pills nav-fill my-4">
-      <li class="nav-item">
-        <a class="nav-link active" id="user-management-tab" onclick="showSection('user-management')">User Management</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="expense-management-tab" onclick="showSection('expense-management')">Expense Management</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" id="statistics-tab" onclick="showSection('statistics')">Statistics</a>
-      </li>
-    </ul>
+<div class="container mt-5">
+  <h2 class="text-center">Admin Dashboard</h2>
 
-    <!-- Sections -->
+  <!-- Navigation Tabs -->
+  <ul class="nav nav-pills nav-fill my-4">
+    <li class="nav-item">
+      <a class="nav-link active" id="user-management-tab" onclick="showSection('user-management')">User Management</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="expense-management-tab" onclick="showSection('expense-management')">Expense Management</a>
+    </li>
+    <li class="nav-item">
+      <a class="nav-link" id="statistics-tab" onclick="showSection('statistics')">Statistics</a>
+    </li>
+  </ul>
 
-    <?php require_once '../Backend/fetch_users.php'; ?>
-    <!-- User Management Section -->
-    <div id="user-management" class="section-content active">
-      <h4>User Management</h4>
-      <div class="table-responsive">
-        <table class="table table-hover table-striped">
-          <thead style="background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672); color: white;">
+  <!-- Sections -->
+
+  <?php require_once '../Backend/fetch_users.php'; ?>
+  <!-- User Management Section -->
+  <div id="user-management" class="section-content active">
+    <h4>User Management</h4>
+    <div class="table-responsive">
+      <table class="table table-hover table-striped">
+        <thead style="background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672); color: white;">
+          <tr>
+            <th>ID</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Joining Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php foreach ($users as $user): ?>
             <tr>
-              <th>ID</th>
-              <th>Username</th>
-              <th>Email</th>
-              <th>Joining Date</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php foreach ($users as $user): ?>
-              <tr>
-                <td><?= htmlspecialchars($user['id']) ?></td>
-                <td><?= htmlspecialchars($user['name']) ?></td>
-                <td><?= htmlspecialchars($user['email']) ?></td>
-                <td><?= htmlspecialchars($user['created_at']) ?></td>
-                <td>
+              <td><?= htmlspecialchars($user['id']) ?></td>
+              <td><?= htmlspecialchars($user['name']) ?></td>
+              <td><?= htmlspecialchars($user['email']) ?></td>
+              <td><?= htmlspecialchars($user['created_at']) ?></td>
+              <td>
                 <a href="../Backend/update.php?id=<?= $user['id'] ?>" class="btn btn-warning">Edit</a>
 
-                
 
 
-                  <a href="../Backend/delete_user.php?id=<?= $user['id'] ?>" class="btn btn-danger">Delete</a>
-                  <a href="../Backend/make_admin.php?id=<?= $user['id'] ?>" class="btn btn-success">Make Admin</a>
+
+                <a href="../Backend/delete_user.php?id=<?= $user['id'] ?>" class="btn btn-danger">Delete</a>
+                <a href="../Backend/make_admin.php?id=<?= $user['id'] ?>" class="btn btn-success">Make Admin</a>
+              </td>
+            </tr>
+          <?php endforeach; ?>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- edit  -->
+
+  <div id="edit-form-container" style="display: none;" class="mt-4">
+    <h4>Edit User</h4>
+    <form method="POST" action="../Backend/update.php" class="border p-4 rounded">
+      <input type="hidden" id="edit-user-id" name="user_id">
+      <div class="mb-3">
+        <label for="edit-name" class="form-label">Name</label>
+        <input type="text" id="edit-name" name="name" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="edit-email" class="form-label">Email</label>
+        <input type="email" id="edit-email" name="email" class="form-control" required>
+      </div>
+      <div class="mb-3">
+        <label for="edit-password" class="form-label">Password (Leave empty to keep current)</label>
+        <input type="password" id="edit-password" name="password" class="form-control">
+      </div>
+      <button type="submit" class="btn btn-primary">Update</button>
+      <button type="button" class="btn btn-secondary" onclick="hideEditForm()">Cancel</button>
+    </form>
+  </div>
+
+
+
+  <?php
+
+  $database = new Database();
+  $conn = $database->getConnection();
+
+  try {
+    $query = "
+        SELECT 
+            e.id AS expense_id, 
+            u.name AS user_name, 
+            e.expense_date, 
+            c.name AS category_name, 
+            e.amount, 
+            e.description 
+        FROM expenses e
+        JOIN users u ON e.user_id = u.id
+        JOIN categories c ON e.category_id = c.id
+        ORDER BY e.expense_date DESC";
+
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    $expenses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+  }
+  ?>
+
+  <?php
+
+
+  $database = new Database();
+  $conn = $database->getConnection();
+
+  try {
+    $query = "
+        SELECT 
+            e.id AS expense_id, 
+            u.name AS user_name, 
+            e.expense_date, 
+            c.name AS category_name, 
+            e.amount, 
+            e.description 
+        FROM expenses e
+        JOIN users u ON e.user_id = u.id
+        JOIN categories c ON e.category_id = c.id
+        ORDER BY e.expense_date DESC";
+
+    $stmt = $conn->prepare($query);
+    $stmt->execute();
+    $expenses = $stmt->fetchAll(PDO::FETCH_ASSOC);
+  } catch (PDOException $e) {
+    echo "Error: " . $e->getMessage();
+  }
+  ?>
+
+  <!-- Expense Management Section -->
+  <div id="expense-management" class="section-content">
+    <h4>Expense Management</h4>
+    <div class="table-responsive">
+      <table class="table table-hover table-striped">
+        <thead style="background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672); color: white;">
+          <tr>
+            <th>Expense ID</th>
+            <th>User</th>
+            <th>Date</th>
+            <th>Category</th>
+            <th>Amount</th>
+            <th>Comment</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <?php if (!empty($expenses)): ?>
+            <?php foreach ($expenses as $expense): ?>
+              <tr>
+                <td><?= htmlspecialchars($expense['expense_id']) ?></td>
+                <td><?= htmlspecialchars($expense['user_name']) ?></td>
+                <td><?= htmlspecialchars($expense['expense_date']) ?></td>
+                <td><?= htmlspecialchars($expense['category_name']) ?></td>
+                <td><?= htmlspecialchars(number_format($expense['amount'], 2)) ?></td>
+                <td><?= htmlspecialchars($expense['description']) ?></td>
+                <td>
+                  <a href="../Backend/delete_expense_admin.php?id=<?= $expense['expense_id'] ?>" class="btn btn-danger btn-sm">Delete</a>
                 </td>
               </tr>
             <?php endforeach; ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- edit  -->
-
-    <div id="edit-form-container" style="display: none;" class="mt-4">
-    <h4>Edit User</h4>
-    <form method="POST" action="../Backend/update.php" class="border p-4 rounded">
-        <input type="hidden" id="edit-user-id" name="user_id">
-        <div class="mb-3">
-            <label for="edit-name" class="form-label">Name</label>
-            <input type="text" id="edit-name" name="name" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label for="edit-email" class="form-label">Email</label>
-            <input type="email" id="edit-email" name="email" class="form-control" required>
-        </div>
-        <div class="mb-3">
-            <label for="edit-password" class="form-label">Password (Leave empty to keep current)</label>
-            <input type="password" id="edit-password" name="password" class="form-control">
-        </div>
-        <button type="submit" class="btn btn-primary">Update</button>
-        <button type="button" class="btn btn-secondary" onclick="hideEditForm()">Cancel</button>
-    </form>
-</div>
-
-    
-
-    <!-- Expense Management Section -->
-    <div id="expense-management" class="section-content">
-      <h4>Expense Management</h4>
-      <div class="table-responsive">
-        <table class="table table-hover table-striped">
-          <thead style="background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672); color: white;">
+          <?php else: ?>
             <tr>
-              <th>Expense ID</th>
-              <th>User</th>
-              <th>Date</th>
-              <th>Category</th>
-              <th>Amount</th>
-              <th>Comment</th>
-              <th>Actions</th>
+              <td colspan="7" class="text-center">No expenses found.</td>
             </tr>
-          </thead>
-          <tbody>
-            <?php
-            $expenses = [
-              ["101", "JohnDoe", "2023-12-01", "Groceries", "$50", "Weekly groceries"],
-              ["102", "JaneSmith", "2023-12-02", "Shopping", "$120", "Clothing purchase"],
-              ["103", "MikeJohnson", "2023-12-03", "Rent", "$500", "Monthly rent"],
-              ["104", "SusanLee", "2023-12-04", "Groceries", "$70", "Weekly groceries"],
-              ["105", "TomBrown", "2023-12-06", "Utilities", "$90", "Internet bill"],
-              ["106", "AnnaWhite", "2023-12-01", "Entertainment", "$150", "Concert tickets"],
-              ["107", "ChrisGreen", "2023-12-02", "Transport", "$35", "Taxi fare"]
-            ];
-            foreach ($expenses as $expense) {
-              echo "<tr>
-                    <td>{$expense[0]}</td>
-                    <td>{$expense[1]}</td>
-                    <td>{$expense[2]}</td>
-                    <td>{$expense[3]}</td>
-                    <td>{$expense[4]}</td>
-                    <td>{$expense[5]}</td>
-                    <td>
-                      <button class='btn btn-danger btn-sm'>Delete</button>
-                    </td>
-                  </tr>";
-            }
-            ?>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-    <!-- Statistics Section -->
-    <div id="statistics" class="section-content gradient-bg">
-      <h4>Statistics</h4>
-      <div class="text-center mb-4">
-        <label for="statistics-select">Choose Statistics:</label>
-        <select id="statistics-select" class="form-control w-50 mx-auto">
-          <option value="all">All Users</option>
-          <option value="user">Single User</option>
-        </select>
-      </div>
-
-      <!-- All Users Statistics -->
-      <div id="all-users-statistics" class="statistics-content">
-        <h5>All Users Statistics</h5>
-        <canvas id="allUsersChart" width="400" height="200"></canvas>
-      </div>
-
-      <!-- Single User Statistics -->
-      <div id="single-user-statistics" class="statistics-content" style="display: none;">
-        <h5>Single User Statistics</h5>
-        <div class="form-group">
-          <label for="single-user-select">Select User:</label>
-          <select id="single-user-select" class="form-control">
-            <option value="1">JohnDoe</option>
-            <option value="2">JaneSmith</option>
-            <option value="3">MikeJohnson</option>
-            <option value="4">SusanLee</option>
-            <option value="5">TomBrown</option>
-            <option value="6">AnnaWhite</option>
-            <option value="7">ChrisGreen</option>
-          </select>
-        </div>
-        <canvas id="singleUserChart" width="400" height="200" class="mt-4"></canvas>
-      </div>
+          <?php endif; ?>
+        </tbody>
+      </table>
     </div>
   </div>
+
+
+  <!-- Statistics Section -->
+  <div id="statistics" class="section-content gradient-bg">
+    <h4>Statistics</h4>
+    <div class="text-center mb-4">
+      <label for="statistics-select">Choose Statistics:</label>
+      <select id="statistics-select" class="form-control w-50 mx-auto">
+        <option value="all">All Users</option>
+        <option value="user">Single User</option>
+      </select>
+    </div>
+
+    <!-- All Users Statistics -->
+    <div id="all-users-statistics" class="statistics-content">
+      <h5>All Users Statistics</h5>
+      <canvas id="allUsersChart" width="400" height="200"></canvas>
+    </div>
+
+    <!-- Single User Statistics -->
+    <div id="single-user-statistics" class="statistics-content" style="display: none;">
+      <h5>Single User Statistics</h5>
+      <div class="form-group">
+        <label for="single-user-select">Select User:</label>
+        <select id="single-user-select" class="form-control">
+          <option value="1">JohnDoe</option>
+          <option value="2">JaneSmith</option>
+          <option value="3">MikeJohnson</option>
+          <option value="4">SusanLee</option>
+          <option value="5">TomBrown</option>
+          <option value="6">AnnaWhite</option>
+          <option value="7">ChrisGreen</option>
+        </select>
+      </div>
+      <canvas id="singleUserChart" width="400" height="200" class="mt-4"></canvas>
+    </div>
+  </div>
+
 
   <!-- Footer Section -->
   <?php include('../components/footer.php'); ?>
@@ -373,26 +424,26 @@ if (isset($_SESSION['user_type'])) {
     document.addEventListener('DOMContentLoaded', fetchUsers);
   </script>
 
-<script>
+  <script>
     // Afficher le formulaire d'édition avec les données de l'utilisateur
     function showEditForm(user) {
-        document.getElementById('edit-user-id').value = user.id;
-        document.getElementById('edit-name').value = user.name;
-        document.getElementById('edit-email').value = user.email;
-        document.getElementById('edit-password').value = ""; // Reset the password field
-        document.getElementById('edit-form-container').style.display = 'block';
-        window.scrollTo(0, document.getElementById('edit-form-container').offsetTop);
+      document.getElementById('edit-user-id').value = user.id;
+      document.getElementById('edit-name').value = user.name;
+      document.getElementById('edit-email').value = user.email;
+      document.getElementById('edit-password').value = ""; // Reset the password field
+      document.getElementById('edit-form-container').style.display = 'block';
+      window.scrollTo(0, document.getElementById('edit-form-container').offsetTop);
     }
 
     // Masquer le formulaire d'édition
     function hideEditForm() {
-        document.getElementById('edit-form-container').style.display = 'none';
+      document.getElementById('edit-form-container').style.display = 'none';
     }
-</script>
+  </script>
 
 
 
 
-</body>
+  </body>
 
-</html>
+  </html>
