@@ -18,11 +18,20 @@ $conn = $db->getConnection();
 
 // Prepare the query to get the sum of expenses per category
 $query_expenses = "
-    SELECT categories.name AS category_name, SUM(expenses.amount) AS total_expenses
-    FROM expenses
-    JOIN categories ON expenses.category_id = categories.id
-    WHERE expenses.user_id = :user_id
-    GROUP BY categories.name
+    SELECT 
+        categories.name AS category_name, 
+        e.amount AS total_expenses
+    FROM 
+        expenses e
+    JOIN 
+        categories ON e.category_id = categories.id
+    WHERE 
+        e.user_id = :user_id
+        AND e.expense_date = (
+            SELECT MAX(expense_date)
+            FROM expenses
+            WHERE category_id = e.category_id AND user_id = :user_id
+        )
 ";
 $stmt_expenses = $conn->prepare($query_expenses);
 $stmt_expenses->bindParam(':user_id', $user_id);
@@ -90,20 +99,20 @@ $category_colors_json = json_encode($category_colors);
       <button class="nav-link" id="add-expense-tab" data-bs-toggle="tab" data-bs-target="#add-expense" type="button" role="tab">Add Expense</button>
     </li>
     <li class="nav-item ms-auto">
-    <form action="../Backend/generate_report.php" method="post" class="d-flex align-items-center">
+      <form action="../Backend/generate_report.php" method="post" class="d-flex align-items-center">
         <div class="form-group d-flex align-items-center me-3">
-            <label for="from_date" class="me-2 mb-0">From:</label>
-            <input type="date" class="form-control" id="from_date" name="from_date">
+          <label for="from_date" class="me-2 mb-0">From:</label>
+          <input type="date" class="form-control" id="from_date" name="from_date">
         </div>
-        
+
         <div class="form-group d-flex align-items-center me-3">
-            <label for="to_date" class="me-2 mb-0">To:</label>
-            <input type="date" class="form-control" id="to_date" name="to_date">
+          <label for="to_date" class="me-2 mb-0">To:</label>
+          <input type="date" class="form-control" id="to_date" name="to_date">
         </div>
-        
+
         <button type="submit" class="btn btn-primary">Generate Report</button>
-    </form>
-</li>
+      </form>
+    </li>
 
   </ul>
 
@@ -264,8 +273,8 @@ $category_colors_json = json_encode($category_colors);
     color: white;
   }
 
-#trackerTabs .nav-item {
-  padding-right: 10px; /* Adds spacing between the tabs */
-}
-
+  #trackerTabs .nav-item {
+    padding-right: 10px;
+    /* Adds spacing between the tabs */
+  }
 </style>
