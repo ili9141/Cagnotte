@@ -97,12 +97,20 @@ try {
     const allUsersStatsDiv = document.getElementById('all-users-statistics');
     const singleUserStatsDiv = document.getElementById('single-user-statistics');
 
+    let allUsersChartInstance = null;
+    let singleUserChartInstance = null;
+
     // Generate All Users Chart
     function generateAllUsersChart() {
         const allUsersLabels = statistics.map(user => user.name);
         const allUsersData = statistics.map(user => user.total_spent);
 
-        new Chart(allUsersChartCtx, {
+        // Destroy existing chart instance if present
+        if (allUsersChartInstance) {
+            allUsersChartInstance.destroy();
+        }
+
+        allUsersChartInstance = new Chart(allUsersChartCtx, {
             type: 'bar',
             data: {
                 labels: allUsersLabels,
@@ -138,12 +146,17 @@ try {
         const labels = Object.keys(user.category_expenses);
         const data = Object.values(user.category_expenses);
 
-        new Chart(singleUserChartCtx, {
-            type: 'pie',
+        // Destroy existing chart instance if present
+        if (singleUserChartInstance) {
+            singleUserChartInstance.destroy();
+        }
+
+        singleUserChartInstance = new Chart(singleUserChartCtx, {
+            type: 'bar', // Changed to bar chart
             data: {
                 labels: labels,
                 datasets: [{
-                    label: `Spending Breakdown for ${user.name}`,
+                    label: `Spending Breakdown for ${user.name} ($)`,
                     data: data,
                     backgroundColor: [
                         '#F94144', '#F3722C', '#F8961E', '#F9C74F', '#90BE6D', '#43AA8B', '#577590', '#277DA1'
@@ -155,6 +168,9 @@ try {
                 plugins: {
                     legend: { display: true },
                     title: { display: true, text: `Spending Breakdown for ${user.name}` },
+                },
+                scales: {
+                    y: { beginAtZero: true, title: { display: true, text: 'Amount ($)' } },
                 },
             },
         });
