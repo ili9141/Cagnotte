@@ -79,7 +79,7 @@ if (!isset($_SESSION['user_type'])) {
                                 <td><?= htmlspecialchars($user['email']) ?></td>
                                 <td><?= htmlspecialchars($user['created_at']) ?></td>
                                 <td>
-                                    <a href="../Backend/update_user.php?id=<?= $user['id'] ?>" class="btn btn-warning">Edit</a>
+                                    <a href="../Backend/update.php?id=<?= $user['id'] ?>" class="btn btn-warning">Edit</a>
                                     <a href="../Backend/delete_user.php?id=<?= $user['id'] ?>" class="btn btn-danger">Delete</a>
                                     <?php if ($user['type'] === 'admin'): ?>
                                         <button class="btn btn-success disabled" disabled>Already Admin</button>
