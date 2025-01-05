@@ -1,13 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Advent+Pro:ital,wght@0,100..900;1,100..900&family=Oswald:wght@200..700&display=swap');
+
 /* General Body Styles */
+/* Update body styles for sticky footer */
 body {
-  background: linear-gradient(45deg,#0C134F, #1D267D , #5C469C,#D4ADFC);
-  min-height: 100vh; /* Adjusted to allow dynamic height */
+  background: linear-gradient(45deg, #0C134F, #1D267D, #5C469C, #D4ADFC);
+  min-height: 100vh;
   color: #fff;
-  font-family: 'Dancing Script', cursive;
+  font-family: 'Advent Pro', sans-serif !important;
+  line-height: 1.6;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
 }
+
+
 
 /* Navbar Styles */
 .navbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1rem;
   background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110));
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
@@ -15,7 +28,13 @@ body {
 .navbar-brand {
   color: #fff;
   font-size: 1.8rem;
+  font-family: 'Oswald', sans-serif;
   font-weight: bold;
+}
+
+.navbar-brand img {
+  max-height: 50px;
+  width: auto;
 }
 
 .navbar-brand:hover {
@@ -23,13 +42,53 @@ body {
   text-decoration: none;
 }
 
+.navbar-nav {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.nav-link {
+  color: #ffffff;
+  font-size: 1rem;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  transition: color 0.2s, background 0.2s;
+}
+
+.nav-link:hover {
+  color: #d4adfc;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 5px;
+}
+
 /* Heading Styles */
+h1, h2, h3 {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+  font-weight: bold;
+}
+
+h1 {
+  font-size: 3rem;
+  text-align: center;
+}
+
 h2 {
-  color: #f8f9fa;
+  font-size: 2.5rem;
   text-align: center;
   margin: 30px 0;
-  font-weight: bold;
-  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6);
+}
+
+h3 {
+  font-size: 2rem;
 }
 
 /* Table Styles */
@@ -53,8 +112,9 @@ h2 {
 
 .table th, .table td {
   padding: 15px;
-  text-align: left;
+  text-align: center;
   border: 1px solid rgba(255, 255, 255, 0.2);
+  vertical-align: middle;
 }
 
 .table tbody tr:nth-child(even) {
@@ -68,13 +128,24 @@ h2 {
 
 /* Button Styles */
 .btn {
+  font-family: 'Oswald', sans-serif;
+  text-transform: uppercase;
+  font-weight: 500;
   padding: 0.45rem 1.5rem;
   border-radius: 5px;
-  font-size: 0.9rem;
-  font-weight: bold;
-  border: none;
   transition: all 0.3s ease-in-out;
   cursor: pointer;
+  border: none;
+}
+
+.btn-primary {
+  background: linear-gradient(45deg, #5C469C, #D4ADFC);
+}
+
+.btn-primary:hover {
+  background: linear-gradient(45deg, #D4ADFC, #5C469C);
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(212, 173, 252, 0.7);
 }
 
 .btn-warning {
@@ -86,6 +157,7 @@ h2 {
   background-color: #5C469C;
   color: #fff;
   box-shadow: 0 2px 8px rgba(92, 70, 156, 0.6);
+  transform: scale(1.05);
 }
 
 .btn-danger {
@@ -96,6 +168,37 @@ h2 {
 .btn-danger:hover {
   background-color: #b02a37;
   box-shadow: 0 2px 8px rgba(176, 42, 55, 0.6);
+  transform: scale(1.05);
+}
+
+/* Card Styles */
+.card {
+  background: linear-gradient(145deg, #1D267D, #5C469C);
+  color: #fff;
+  border-radius: 15px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+  height: 300px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+}
+
+.card-title {
+  font-family: 'Oswald', sans-serif;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  text-transform: uppercase;
+}
+
+.card-text {
+  font-size: 1rem;
+  text-align: center;
 }
 
 /* Footer Styles */
@@ -104,8 +207,9 @@ footer {
   color: #fff;
   text-align: center;
   margin-top: 30px;
+  padding: 20px;
   box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.3);
-  font-size: 0.85rem;
+  font-family: 'Advent Pro', sans-serif;
 }
 
 footer p {
@@ -123,347 +227,56 @@ footer a:hover {
   text-decoration: underline;
 }
 
-/* Footer Columns */
-.footer .footer-column {
-  margin-bottom: 20px;
-}
-
-.footer img {
-  display: block;
-  margin: 0 auto 10px auto;
-  max-width: 100%;
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-  .navbar-brand {
-      font-size: 1.5rem;
-  }
-
-  h2 {
-      font-size: 1.5rem;
-  }
-
-  .table th, .table td {
-      font-size: 0.85rem;
-      padding: 10px;
-  }
-
-  .btn {
-      padding: 0.4rem 1.2rem;
-      font-size: 0.8rem;
-  }
-
-  footer {
-      font-size: 0.75rem;
-      padding: 20px 10px;
-  }
-
-  footer p {
-      font-size: 0.75rem;
-  }
-}
- /* Profile dropdown behavior */
-.nav-item .dropdown-menu {
-  display: none; /* Hidden by default */
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110)); /* Same as navbar background */
-  border-radius: 8px;
-  z-index: 1050;
-  margin-top: 8px;
-  padding: 0.5rem 0;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Optional shadow for elevation */
-  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
-  opacity: 0;
-  visibility: hidden;
-}
-
-/* Show dropdown on hover */
-.nav-item.dropdown:hover .dropdown-menu,
-.nav-item.dropdown .dropdown-menu:hover {
-  display: block;
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Dropdown menu links */
-.dropdown-menu a {
-  color: #ffffff; /* White text for contrast */
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  display: block;
-  transition: background-color 0.2s ease-in-out;
-}
-
-.dropdown-menu a:hover {
-  background-color: #1D267D; /* Hover effect with a slightly different tone */
-  color: #ffffff;
-}
-
-/* Adjust position of navbar items (Home, Notifications) */
-.navbar-nav .nav-item {
-  display: flex;
-  align-items: center;
-}
-
-.navbar-dark .navbar-nav .nav-link {
-  color: #ffffff;
-}
-
-.navbar-dark .navbar-nav .nav-link:hover {
-  color: #d4adfc;
-}
-
-/* Ensure the icons and text (Notifications and Home) are centered properly */
-.navbar-nav .nav-item i {
-  font-size: 20px;
-}
-
-.navbar-nav .nav-item .badge {
-  margin-top: 5px;
-  /* Adjust the badge position */
-}
-
-/* Additional tweak to adjust vertical alignment for Notifications */
-.nav-item:nth-child(2) .nav-link {
-  padding-top: 8px;
-  /* Adjusted padding for better alignment */
-}
-
-/* Profile dropdown behavior */
-.nav-item.dropdown {
-  position: relative;
-}
-
-/* Dropdown menu styling */
-.nav-item .dropdown-menu {
-  display: none; /* Hidden by default */
-  position: absolute;
-  top: 100%;
-  left: 50%;
-  transform: translateX(-50%);
-  background-color: #0C134F; /* Matches navbar background color */
-  border-radius: 8px;
-  z-index: 1050;
-  margin-top: 0;
-  padding: 0.5rem 0;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
-  opacity: 0;
-  visibility: hidden;
-}
-
-/* Show dropdown on hover */
-.nav-item.dropdown:hover .dropdown-menu,
-.nav-item.dropdown .dropdown-menu:hover {
-  display: block;
-  opacity: 1;
-  visibility: visible;
-}
-
-/* Dropdown menu links */
-.dropdown-menu a {
-  color: white;
-  padding: 0.5rem 1rem;
-  text-decoration: none;
-  display: block;
-}
-
-.dropdown-menu a:hover {
-  background-color: #1D267D; /* Slight hover effect on menu items */
-  color: #ffffff;
-}
-
-/* Ensure smooth dropdown appearance */
-.nav-item .dropdown-menu {
-  transition: all 0.2s ease-in-out;
-}
-
-/* Adjust navbar items */
-.navbar-nav .nav-item {
-  display: flex;
-  align-items: center;
-}
-
-.navbar-dark .navbar-nav .nav-link {
-  color: #ffffff;
-}
-
-.navbar-dark .navbar-nav .nav-link:hover {
-  color: #d4adfc;
-}
-
-/* Updated Button Styles */
-.nav-pills .nav-link {
+/* Dropdown Menu */
+.dropdown-menu {
   background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110));
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown-menu a {
   color: white;
-  border-radius: 5px;
+  padding: 0.5rem 1rem;
+  text-decoration: none;
 }
 
-.nav-pills .nav-link.active {
-  background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672);
-  color: white;
+.dropdown-menu a:hover {
+  background-color: #1D267D;
+  color: #ffffff;
 }
 
-.nav-pills .nav-link:hover {
-  background: linear-gradient(to left, rgb(4, 4, 53), rgb(8, 54, 110));
-  color: white;
-}
-
-/* Enhanced Table Styles */
-.table {
-  border-collapse: collapse;
-}
-
-.table th {
-  text-align: center;
-  font-weight: bold;
-  padding: 10px;
-  border-top: 1px solid rgba(0, 0, 0, 0.1);
-  border-bottom: 2px solid rgba(0, 0, 0, 0.2);
-}
-
-.table td {
-  text-align: center;
-  padding: 10px;
-  vertical-align: middle;
-}
-
-.table tbody tr:nth-child(even) {
-  background-color: #f8f8f8;
-}
-
-.table tbody tr:hover {
-  background-color: rgba(108, 4, 173, 0.1);
-  transition: background-color 0.2s ease-in-out;
-}
-
-.table thead th {
-  font-size: 1rem;
-  text-transform: uppercase;
-}
-
-.table button {
-  font-size: 0.85rem;
-  font-weight: 600;
-  padding: 5px 10px;
-}
-@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=EB+Garamond:ital,wght@0,400..800;1,400..800&family=Zilla+Slab:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap');    
-
-body {
-    font-family: 'Dancing Script', cursive;
-}
-
-.bg-image {
-    position: relative;
-}
-
-.btn-primary {
-    background: linear-gradient(45deg, #4b007a, #6c04ad);
-    
-}
-
-.btn-primary:hover {
-    background:linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110));
-    transform: scale(1.05);
-}
-
-@media (max-width: 768px) {
-    .bg-image {
-        height: 70vh;
-    }
-
-    .content h1 {
-        font-size: 2.5rem;
-    }
-
-    .content p {
-        font-size: 1.2rem;
-    }
-}
-
-.overlay {
-   
-    border-radius: 15px;
-}
-
-.card {
-    height: 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    color: white;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: box-shadow 0.3s ease, transform 0.3s ease;
-}
-
-.card:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-    transform: scale(1.05);
-}
-
-.card-title {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
-}
-
-.card-text {
-    font-size: 1rem;
-    text-align: center;
-}
-@import url('https://fonts.googleapis.com/css2?family=Zilla+Slab:wght@400;600;700&display=swap');
-
-body {
-    font-family: 'Zilla Slab', serif;
-}
-
+/* Profile Styles */
 .profile-header {
-    background-image: url('../Assets/Images/banner4.png');
-    color: white;
-    border-radius: 15px;
-    padding: 20px;
-}
-
-.profile-header h1 {
-    font-size: 2.5rem;
+  background-image: url('../Assets/Images/banner4.png');
+  color: white;
+  border-radius: 15px;
+  padding: 20px;
 }
 
 .profile-card {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 15px;
-    padding: 20px;
-    margin-bottom: 20px;
-    background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110));
-    color: azure;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  border-radius: 15px;
+  padding: 20px;
+  margin-bottom: 20px;
+  background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110));
+  color: azure;
 }
 
+/* Form Styles */
 .update-form {
-    display: none; /* Hide the update form initially */
-}
-
-.btn-custom {
-    background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672);
-    border: none;
-    color: white;
-}
-
-.btn-custom:hover {
-    background: linear-gradient(45deg, rgba(255, 105, 180, 0.9), rgba(255, 20, 147, 0.9));
-    transform: scale(1.05);
+  display: none;
 }
 
 .show-update-form {
-    cursor: pointer;
-    text-decoration: underline;
+  cursor: pointer;
+  text-decoration: underline;
 }
 
 .update-message {
-    margin-top: 20px;
+  margin-top: 20px;
 }
+
+/* Section Styles */
 .section-content {
   display: none;
 }
@@ -479,8 +292,67 @@ body {
   border-radius: 10px;
 }
 
+/* Canvas Styles */
 canvas {
   background-color: white;
   border-radius: 10px;
   margin-top: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar-brand {
+    font-size: 1.5rem;
+  }
+  
+  .navbar-brand img {
+    max-height: 40px;
+  }
+  
+  h1, h2 {
+    font-size: 2rem;
+  }
+  
+  h3 {
+    font-size: 1.5rem;
+  }
+  
+  .nav-link {
+    font-size: 0.9rem;
+  }
+  
+  .btn {
+    padding: 0.4rem 1.2rem;
+    font-size: 0.8rem;
+  }
+  
+  .table th, .table td {
+    font-size: 0.85rem;
+    padding: 10px;
+  }
+  
+  footer {
+    font-size: 0.75rem;
+    padding: 20px 10px;
+  }
+  
+  footer p {
+    font-size: 0.75rem;
+  }
+}
+/* Add wrapper for main content */
+.main-content {
+  flex: 1 0 auto;
+  width: 100%;
+  padding-bottom: 30px; /* Add some space before footer */
+}
+
+/* Update footer styles */
+.gradient-custom {
+  background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110));
+  flex-shrink: 0;
+  width: 100%;
+  box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.3);
+  font-family: 'Advent Pro', sans-serif;
+  margin-top: auto;
 }

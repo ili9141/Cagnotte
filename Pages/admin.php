@@ -25,6 +25,157 @@ if (!isset($_SESSION['user_type'])) {
 <?php include('../components/important-header.php'); ?>
 <?php include('../components/navb.php'); ?>
 
+<style>
+    .container {
+        margin-top: 50px;
+        background: linear-gradient(45deg, #1D267D, #5C469C);
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    h2 {
+        font-size: 2.5rem;
+        text-align: center;
+        color: #D4ADFC;
+        text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+        margin-bottom: 30px;
+        font-family: 'Advent Pro', sans-serif;
+    }
+
+    h4 {
+        font-size: 1.8rem;
+        color: #D4ADFC;
+        margin-bottom: 20px;
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+    }
+
+    .nav-pills .nav-link {
+        font-size: 1.1rem;
+        text-transform: uppercase;
+        background: #5C469C;
+        color: #fff;
+        border-radius: 5px;
+        transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .nav-pills .nav-link:hover {
+        background: #D4ADFC;
+        transform: scale(1.05);
+    }
+
+    .nav-pills .nav-link.active {
+        background: linear-gradient(45deg, #4b007a, #6c04ad);
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .table {
+        width: 100%;
+        margin-top: 20px;
+        background: rgba(255, 255, 255, 0.1);
+        color: #fff;
+        border-collapse: collapse;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .table thead {
+        background: linear-gradient(45deg, #4b007a, #6c04ad);
+        text-transform: uppercase;
+        color: white;
+        font-size: 1rem;
+    }
+
+    .table th, .table td {
+        padding: 15px;
+        text-align: left;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        font-family: 'Advent Pro', sans-serif;
+    }
+
+    .table tbody tr:nth-child(even) {
+        background: rgba(255, 255, 255, 0.05);
+    }
+
+    .table tbody tr:hover {
+        background: rgba(255, 255, 255, 0.2);
+        transition: background 0.3s ease-in-out;
+    }
+
+    .table-responsive {
+        border-radius: 10px;
+        overflow: hidden;
+    }
+
+    .btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+        border-radius: 5px;
+        font-weight: bold;
+        text-transform: uppercase;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .btn-warning {
+        background-color: #D4ADFC;
+        color: #000;
+    }
+
+    .btn-warning:hover {
+        background-color: #5C469C;
+        color: #fff;
+        transform: scale(1.1);
+        box-shadow: 0 4px 10px rgba(92, 70, 156, 0.6);
+    }
+
+    .btn-danger {
+        background-color: #dc3545;
+        color: #fff;
+    }
+
+    .btn-danger:hover {
+        background-color: #b02a37;
+        transform: scale(1.1);
+        box-shadow: 0 4px 10px rgba(176, 42, 55, 0.6);
+    }
+
+    .btn-success {
+        background: linear-gradient(45deg, #4CAF50, #34A853);
+        color: #fff;
+    }
+
+    .btn-success:hover {
+        background: linear-gradient(45deg, #34A853, #4CAF50);
+        transform: scale(1.1);
+        box-shadow: 0 4px 10px rgba(52, 168, 83, 0.6);
+    }
+
+    .section-content {
+        display: none;
+        padding: 20px;
+        border-radius: 15px;
+        background: linear-gradient(45deg, #1D267D, #5C469C);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
+
+    .section-content.active {
+        display: block;
+    }
+
+    .alert {
+        border-radius: 5px;
+        font-size: 1rem;
+        font-family: 'Advent Pro', sans-serif;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .alert-info {
+        background: linear-gradient(45deg, #4b007a, #6c04ad);
+        color: white;
+        border: none;
+    }
+</style>
+
 <div class="container mt-5">
     <h2 class="text-center">Admin Dashboard</h2>
 
@@ -61,7 +212,7 @@ if (!isset($_SESSION['user_type'])) {
             }
             ?>
             <table class="table table-hover table-striped">
-                <thead style="background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672); color: white;">
+                <thead>
                     <tr>
                         <th>ID</th>
                         <th>Username</th>
@@ -125,7 +276,7 @@ if (!isset($_SESSION['user_type'])) {
             }
             ?>
             <table class="table table-hover table-striped">
-                <thead style="background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672); color: white;">
+                <thead>
                     <tr>
                         <th>Expense ID</th>
                         <th>User</th>

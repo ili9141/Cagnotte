@@ -16,32 +16,39 @@ if (isset($_SESSION['user_type'])) {
 <?php include('../components/important-header.php'); ?>
 <?php include('../components/navb.php'); ?>
 
-
-
-<!-- Slider Section -->
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style=" margin: 0 auto;">
-    <div class="carousel-inner" style="height: 100vh;">
+<!-- Carousel Section -->
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner" style="height: 100vh; border-radius: 20px; overflow: hidden;">
         <!-- Slide 1 -->
-        <div class="carousel-item active bg-image" style="background-image: url('../Assets/Images/banner04.jpg'); background-size: cover; background-position: center;">
-            <div class="overlay w-100 h-100" style="border-radius: 15px;"></div>
-            <div class="content position-relative text-center text-white d-flex flex-column justify-content-center" style="font-family: 'Zilla Slab', cursive;">
-                <a href="#features" class="btn btn-primary btn-lg mt-3">Join Us Now</a>
+        <div class="carousel-item active bg-image" style="background: linear-gradient(to bottom right, #0C134F, #1D267D);">
+            <div class="d-flex align-items-center justify-content-center text-center h-100">
+                <div>
+                    <h1 class="text-white fw-bold">Welcome to La Cagnotte</h1>
+                    <p class="text-white lead">Take control of your finances effortlessly with tools to track, manage, and analyze your spending.</p>
+                    <a href="#features" class="btn btn-primary btn-lg">Get Started</a>
+                </div>
             </div>
         </div>
 
         <!-- Slide 2 -->
-        <div class="carousel-item bg-image" style="background-image: url('../Assets/Images/banner02.jpg'); background-size: cover; background-position: center;">
-            <div class="overlay w-100 h-100" style="border-radius: 15px;"></div>
-            <div class="content position-relative text-center text-white d-flex flex-column justify-content-center" style="font-family: 'Zilla Slab', cursive;">
-                <a href="#features" class="btn btn-primary btn-lg mt-3">Join Us Now</a>
+        <div class="carousel-item bg-image" style="background: linear-gradient(to bottom right, #1D267D, #5C469C);">
+            <div class="d-flex align-items-center justify-content-center text-center h-100">
+                <div>
+                    <h1 class="text-white fw-bold">Simplify Your Budget</h1>
+                    <p class="text-white lead">Visualize your expenses and achieve your financial goals.</p>
+                    <a href="#features" class="btn btn-primary btn-lg">Join Us Now</a>
+                </div>
             </div>
         </div>
 
         <!-- Slide 3 -->
-        <div class="carousel-item bg-image" style="background-image: url('../Assets/Images/banner03.jpg'); background-size: cover; background-position: center;">
-            <div class="overlay w-100 h-100" style="border-radius: 15px;"></div>
-            <div class="content position-relative text-center text-white d-flex flex-column justify-content-center" style="font-family: 'Zilla Slab', cursive;">
-                <a href="#features" class="btn btn-primary btn-lg mt-3">Join Us Now</a>
+        <div class="carousel-item bg-image" style="background: linear-gradient(to bottom right, #5C469C, #D4ADFC);">
+            <div class="d-flex align-items-center justify-content-center text-center h-100">
+                <div>
+                    <h1 class="text-white fw-bold">Track and Analyze</h1>
+                    <p class="text-white lead">Stay on top of your spending with detailed insights.</p>
+                    <a href="#features" class="btn btn-primary btn-lg">Explore Features</a>
+                </div>
             </div>
         </div>
     </div>
@@ -57,134 +64,129 @@ if (isset($_SESSION['user_type'])) {
     </button>
 </div>
 
-<section id="info" class="container-fluid py-5 mt-5" style="background: linear-gradient(to right, rgb(4, 4, 53), rgb(8, 54, 110)); color: white; font-family: 'Zilla Slab', cursive; font-weight: bold;">
+<!-- Info Section -->
+<section id="info" class="container-fluid py-5" style="background: #0C134F; color: white;">
     <div class="container">
-        <p class="lead mb-0">La Cagnotte is your ultimate personal finance app, designed to simplify expense tracking and budget management. Whether you want to monitor your spending, categorize transactions, or set budget limits, La Cagnotte provides a seamless experience. With detailed infographics and insights into your finances, managing your budget has never been easier. Take control of your finances and achieve your financial goals with La Cagnotte!</p>
+        <h2 class="text-center mb-4">Why Choose La Cagnotte?</h2>
+        <p class="lead text-center">La Cagnotte is your ultimate personal finance app, designed to simplify expense tracking and budget management. Take control of your finances and achieve your goals with our seamless tools and insights.</p>
     </div>
 </section>
 
-<section id="cards" class="container my-5">
-    <div class="row">
+<!-- Features Section -->
+<section id="features" class="container py-5">
+    <div class="row text-center">
         <div class="col-md-4 mb-4">
-            <div class="card" style="background-image: url('../Assets/Images/card1.jpg'); background-size: cover; background-position: center; border-radius: 15px;">
-                <div class="card-body text-white d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
-                    <h5 class="card-title">Card Title 1</h5>
-                    <p class="card-text">Description for card 1</p>
+            <div class="card bg-dark text-white p-4 h-100" style="border-radius: 15px;">
+                <div class="card-body">
+                    <i class="bi bi-gear fs-1"></i>
+                    <h5 class="card-title mt-3">Settings</h5>
+                    <p class="card-text">View and update your personal information easily.</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4 mb-4">
-            <div class="card" style="background-image: url('../Assets/Images/card2.jpg'); background-size: cover; background-position: center; border-radius: 15px;">
-                <div class="card-body text-white d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
-                    <h5 class="card-title">Card Title 2</h5>
-                    <p class="card-text">Description for card 2</p>
+            <div class="card bg-dark text-white p-4 h-100" style="border-radius: 15px;">
+                <div class="card-body">
+                    <i class="bi bi-bar-chart fs-1"></i>
+                    <h5 class="card-title mt-3">Analytics</h5>
+                    <p class="card-text">Set goals, analyze spending patterns, and add expenses effortlessly.</p>
                 </div>
             </div>
         </div>
         <div class="col-md-4 mb-4">
-            <div class="card" style="background-image: url('../Assets/Images/card3.jpg'); background-size: cover; background-position: center; border-radius: 15px;">
-                <div class="card-body text-white d-flex flex-column justify-content-center align-items-center" style="height: 100%;">
-                    <h5 class="card-title">Card Title 3</h5>
-                    <p class="card-text">Description for card 3</p>
+            <div class="card bg-dark text-white p-4 h-100" style="border-radius: 15px;">
+                <div class="card-body">
+                    <i class="bi bi-clock-history fs-1"></i>
+                    <h5 class="card-title mt-3">History</h5>
+                    <p class="card-text">Track your expenses by month and export data to Excel with ease.</p>
                 </div>
             </div>
         </div>
-       
     </div>
 </section>
-
-<script>
-    // Smooth scrolling for anchor links
-    const links = document.querySelectorAll('a[href^="#"]');
-    links.forEach(link => {
-        link.addEventListener('click', function(e) {
-            e.preventDefault();
-            const target = document.querySelector(this.getAttribute('href'));
-            target.scrollIntoView({
-                behavior: 'smooth'
-            });
-        });
-    });
-
-    // Carousel interval
-    document.addEventListener('DOMContentLoaded', function() {
-        const carousel = document.querySelector('#carouselExampleIndicators');
-        $(carousel).carousel({
-            interval: 10000
-        });
-    });
-</script>
-
-<?php include('../components/footer.php'); ?>
-
-
 
 <style>
-    .bg-image {
-        font-family: Arial, sans-serif;
-        position: relative;
-    }
+  
 
+    /* Button styling */
     .btn-primary {
-        background: linear-gradient(45deg, #4b007a, #6c04ad, #a82658, #ba4672);
-        border-color: #ff69b4;
+        background: linear-gradient(45deg, #5C469C, #D4ADFC);
+        border: none;
+        color: #fff;
+        transition: transform 0.3s, box-shadow 0.3s;
     }
 
     .btn-primary:hover {
-        background: linear-gradient(45deg, rgba(255, 105, 180, 0.9), rgba(255, 20, 147, 0.9));
-        transform: scale(1.05);
+        background: linear-gradient(45deg, #D4ADFC, #5C469C);
+        transform: scale(1.1);
+        box-shadow: 0 5px 20px rgba(212, 173, 252, 0.8);
     }
 
-    @media (max-width: 768px) {
-        .bg-image {
-            height: 70vh;
-        }
-
-        .content h1 {
-            font-size: 2.5rem;
-        }
-
-        .content p {
-            font-size: 1.2rem;
-        }
-    }
-
-    .overlay {
-
-        border-radius: 15px;
-    }
-
+    /* Card glow effects */
     .card {
-        height: 300px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        color: white;
+        background: linear-gradient(145deg, #1D267D, #5C469C);
+        color: #fff;
         border-radius: 15px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-        transition: box-shadow 0.3s ease, transform 0.3s ease;
+        transition: transform 0.3s, box-shadow 0.3s;
     }
 
     .card:hover {
-        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
-        transform: scale(1.05);
+        transform: translateY(-10px) scale(1.05);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 15px rgba(212, 173, 252, 0.8);
     }
 
-    .card-title {
-        font-size: 1.5rem;
-        margin-bottom: 0.5rem;
+    /* Carousel overlay text styling */
+    .carousel-item .d-flex {
+        background: rgba(0, 0, 0, 0.4);
+        padding: 30px;
+        border-radius: 15px;
     }
 
-    .card-text {
-        font-size: 1rem;
-        text-align: center;
+    /* Icons glow effect */
+    i {
+        color: #D4ADFC;
+        transition: transform 0.3s, text-shadow 0.3s;
     }
 
-    .carousel-inner {
-        border-radius: 30px;
+    i:hover {
+        transform: scale(1.2);
+        text-shadow: 0 0 10px rgba(212, 173, 252, 0.8);
     }
 
-    .bg-image {
-        border-radius: 30px;
+    /* Section backgrounds */
+    #info {
+        background: linear-gradient(135deg, #0C134F, #1D267D);
+        color: #fff;
+        padding: 60px 20px;
+        border-radius: 15px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+    }
+
+    #features {
+        background: linear-gradient(135deg, #5C469C, #D4ADFC);
+        padding: 60px 20px;
+        border-radius: 15px;
+        color: #fff;
+        margin-top: -30px;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Smooth scrolling anchor link */
+    html {
+        scroll-behavior: smooth;
     }
 </style>
+
+<script>
+    // Smooth carousel auto-scroll
+    const carousel = document.querySelector('#carouselExampleIndicators');
+    carousel.addEventListener('slid.bs.carousel', () => {
+        setTimeout(() => {
+            const nextButton = carousel.querySelector('.carousel-control-next');
+            nextButton.click();
+        }, 5000); // 5-second delay
+    });
+</script>
+
+
+<?php include('../components/footer.php'); ?>
