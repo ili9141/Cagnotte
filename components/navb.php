@@ -50,11 +50,12 @@ $user_type = isset($_SESSION['user_type']) ? $_SESSION['user_type'] : null;
               <i class="fas fa-bell"></i>
               <span class="badge bg-danger" id="notificationBadge">0</span> Notifications
             </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="notificationDropdown">
-              <li class="text-center">
-                <span class="dropdown-item-text">Loading notifications...</span>
-              </li>
-            </ul>
+            <ul class="dropdown-menu dropdown-menu-end" id="notificationMenu" aria-labelledby="notificationDropdown">
+  <li class="text-center">
+    <span class="dropdown-item-text">Loading notifications...</span>
+  </li>
+</ul>
+
           </li>
         </ul>
 
@@ -90,3 +91,29 @@ $user_type = isset($_SESSION['user_type']) ? $_SESSION['user_type'] : null;
     </div>
   </nav>
 </div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+ document.addEventListener("DOMContentLoaded", function () {
+    const notificationBadge = document.getElementById("notificationBadge");
+    const notificationMenu = document.getElementById("notificationMenu");
+    // Fetch notifications from the server
+    function fetchNotifications() {
+        fetch("../Backend/get_notifications.php")
+            .then((response) => response.text())
+            .then((data) => {
+                // Separate notifications and badge count using <!--END-->
+                const parts = data.split('<!--END-->');
+                const notificationsHtml = parts[0];
+                const notificationCount = parts[1];
+                // Update badge count
+                notificationBadge.textContent = notificationCount;
+                // Update notification dropdown menu
+                notificationMenu.innerHTML = notificationsHtml;
+            })
+            .catch((error) => console.error("Fetch error:", error));
+    }
+    // Fetch notifications on page load
+    fetchNotifications();
+});
+</script>
