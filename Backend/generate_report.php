@@ -22,8 +22,15 @@ $userQuery = $conn->prepare("SELECT name, id FROM users WHERE id = :userId");
 $userQuery->execute([':userId' => $userId]);
 $user = $userQuery->fetch();
 
-$fromDate = $_POST['from_date'] ?? date('Y-m-01');
-$toDate = $_POST['to_date'] ?? date('Y-m-t');
+$fromDate = $_POST['from_date'] ?? null;
+$toDate = $_POST['to_date'] ?? null;
+
+if (empty($fromDate) || empty($toDate)) {
+    // Redirige avec un message d'erreur si les dates ne sont pas remplies
+    $_SESSION['error'] = "Please select a time period before generating the report.";
+    header("Location: ../Pages/tracker.php");
+    exit;
+}
 
 $expensesQuery = $conn->prepare("
     SELECT e.expense_date AS Date, c.name AS Category, e.amount AS Amount

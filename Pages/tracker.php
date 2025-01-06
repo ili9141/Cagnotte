@@ -98,21 +98,44 @@ $category_colors_json = json_encode($category_colors);
     <li class="nav-item" role="presentation">
       <button class="nav-link" id="add-expense-tab" data-bs-toggle="tab" data-bs-target="#add-expense" type="button" role="tab">Add Expense</button>
     </li>
+
     <li class="nav-item ms-auto">
       <form action="../Backend/generate_report.php" method="post" class="d-flex align-items-center">
         <div class="form-group d-flex align-items-center me-3">
-          <label for="from_date" class="me-2 mb-0">From:</label>
-          <input type="date" class="form-control" id="from_date" name="from_date">
+            <label for="from_date" class="me-2 mb-0">From:</label>
+            <input type="date" class="form-control" id="from_date" name="from_date">
         </div>
 
         <div class="form-group d-flex align-items-center me-3">
-          <label for="to_date" class="me-2 mb-0">To:</label>
-          <input type="date" class="form-control" id="to_date" name="to_date">
+            <label for="to_date" class="me-2 mb-0">To:</label>
+            <input type="date" class="form-control" id="to_date" name="to_date">
         </div>
 
         <button type="submit" class="btn btn-primary">Generate Report</button>
       </form>
+
+      <!-- Message d'erreur sous le bouton -->
+      <?php if (isset($_SESSION['error'])): ?>
+        <div id="error-message" class="alert alert-danger mt-3" role="alert">
+            <i class="bi bi-exclamation-triangle-fill me-2"></i> 
+            <?php 
+            echo $_SESSION['error']; 
+            unset($_SESSION['error']); // Supprime le message après affichage
+            ?>
+        </div>
+      <?php endif; ?>
     </li>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const errorMessage = document.getElementById('error-message');
+        if (errorMessage) {
+            setTimeout(() => {
+                errorMessage.remove();
+            }, 5000); // 5000 ms = 5 secondes
+        }
+    });
+</script>
+
 
   </ul>
 
