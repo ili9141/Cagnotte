@@ -11,16 +11,17 @@ if (isset($_SESSION['user_type'])) {
     echo "User type is not set.";
     exit;
 }
-
 ?>
+
 <?php include('../components/important-header.php'); ?>
+
 <?php include('../components/navb.php'); ?>
 
 <!-- Carousel Section -->
-<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="background: linear-gradient(135deg, #0C134F, #1D267D);">
     <div class="carousel-inner" style="height: 100vh; border-radius: 20px; overflow: hidden;">
         <!-- Slide 1 -->
-        <div class="carousel-item active bg-image" style="background: linear-gradient(to bottom right, #0C134F, #1D267D);">
+        <div class="carousel-item active">
             <div class="d-flex align-items-center justify-content-center text-center h-100">
                 <div>
                     <h1 class="text-white fw-bold">Welcome to La Cagnotte</h1>
@@ -31,7 +32,7 @@ if (isset($_SESSION['user_type'])) {
         </div>
 
         <!-- Slide 2 -->
-        <div class="carousel-item bg-image" style="background: linear-gradient(to bottom right, #1D267D, #5C469C);">
+        <div class="carousel-item">
             <div class="d-flex align-items-center justify-content-center text-center h-100">
                 <div>
                     <h1 class="text-white fw-bold">Simplify Your Budget</h1>
@@ -42,7 +43,7 @@ if (isset($_SESSION['user_type'])) {
         </div>
 
         <!-- Slide 3 -->
-        <div class="carousel-item bg-image" style="background: linear-gradient(to bottom right, #5C469C, #D4ADFC);">
+        <div class="carousel-item">
             <div class="d-flex align-items-center justify-content-center text-center h-100">
                 <div>
                     <h1 class="text-white fw-bold">Track and Analyze</h1>
@@ -64,41 +65,40 @@ if (isset($_SESSION['user_type'])) {
     </button>
 </div>
 
-<!-- Info Section -->
-<section id="info" class="container-fluid py-5" style="background: #0C134F; color: white;">
+<!-- Combined Info and Features Section -->
+<section id="info-features" class="py-5" style="background: linear-gradient(135deg, #0C134F, #1D267D);">
     <div class="container">
-        <h2 class="text-center mb-4">Why Choose La Cagnotte?</h2>
-        <p class="lead text-center">La Cagnotte is your ultimate personal finance app, designed to simplify expense tracking and budget management. Take control of your finances and achieve your goals with our seamless tools and insights.</p>
-    </div>
-</section>
+        <!-- Info Section -->
+        <h2 class="text-center mb-4 text-white">Why Choose La Cagnotte?</h2>
+        <p class="lead text-center text-white">La Cagnotte is your ultimate personal finance app, designed to simplify expense tracking and budget management. Take control of your finances and achieve your goals with our seamless tools and insights.</p>
 
-<!-- Features Section -->
-<section id="features" class="container py-5">
-    <div class="row text-center">
-        <div class="col-md-4 mb-4">
-            <div class="card bg-dark text-white p-4 h-100" style="border-radius: 15px;">
-                <div class="card-body">
-                    <i class="bi bi-gear fs-1"></i>
-                    <h5 class="card-title mt-3">Settings</h5>
-                    <p class="card-text">View and update your personal information easily.</p>
+        <!-- Features Section -->
+        <div class="row text-center mt-5">
+            <div class="col-md-4 mb-4">
+                <div class="card bg-dark text-white p-4 h-100" style="border-radius: 15px;">
+                    <div class="card-body">
+                        <i class="bi bi-gear fs-1"></i>
+                        <h5 class="card-title mt-3">Settings</h5>
+                        <p class="card-text">View and update your personal information easily.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card bg-dark text-white p-4 h-100" style="border-radius: 15px;">
-                <div class="card-body">
-                    <i class="bi bi-bar-chart fs-1"></i>
-                    <h5 class="card-title mt-3">Analytics</h5>
-                    <p class="card-text">Set goals, analyze spending patterns, and add expenses effortlessly.</p>
+            <div class="col-md-4 mb-4">
+                <div class="card bg-dark text-white p-4 h-100" style="border-radius: 15px;">
+                    <div class="card-body">
+                        <i class="bi bi-bar-chart fs-1"></i>
+                        <h5 class="card-title mt-3">Analytics</h5>
+                        <p class="card-text">Set goals, analyze spending patterns, and add expenses effortlessly.</p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-4 mb-4">
-            <div class="card bg-dark text-white p-4 h-100" style="border-radius: 15px;">
-                <div class="card-body">
-                    <i class="bi bi-clock-history fs-1"></i>
-                    <h5 class="card-title mt-3">History</h5>
-                    <p class="card-text">Track your expenses by month and export data to Excel with ease.</p>
+            <div class="col-md-4 mb-4">
+                <div class="card bg-dark text-white p-4 h-100" style="border-radius: 15px;">
+                    <div class="card-body">
+                        <i class="bi bi-clock-history fs-1"></i>
+                        <h5 class="card-title mt-3">History</h5>
+                        <p class="card-text">Track your expenses by month and export data to Excel with ease.</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -106,8 +106,6 @@ if (isset($_SESSION['user_type'])) {
 </section>
 
 <style>
-  
-
     /* Button styling */
     .btn-primary {
         background: linear-gradient(45deg, #5C469C, #D4ADFC);
@@ -135,13 +133,6 @@ if (isset($_SESSION['user_type'])) {
         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3), 0 0 15px rgba(212, 173, 252, 0.8);
     }
 
-    /* Carousel overlay text styling */
-    .carousel-item .d-flex {
-        background: rgba(0, 0, 0, 0.4);
-        padding: 30px;
-        border-radius: 15px;
-    }
-
     /* Icons glow effect */
     i {
         color: #D4ADFC;
@@ -154,21 +145,9 @@ if (isset($_SESSION['user_type'])) {
     }
 
     /* Section backgrounds */
-    #info {
-        background: linear-gradient(135deg, #0C134F, #1D267D);
-        color: #fff;
+    #info-features {
         padding: 60px 20px;
-        border-radius: 15px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
-    }
-
-    #features {
-        background: linear-gradient(135deg, #5C469C, #D4ADFC);
-        padding: 60px 20px;
-        border-radius: 15px;
         color: #fff;
-        margin-top: -30px;
-        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
     }
 
     /* Smooth scrolling anchor link */
@@ -187,6 +166,5 @@ if (isset($_SESSION['user_type'])) {
         }, 5000); // 5-second delay
     });
 </script>
-
 
 <?php include('../components/footer.php'); ?>
