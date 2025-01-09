@@ -52,6 +52,12 @@
                       <label class="form-check-label" for="remember">Remember me</label>
                     </div>
 
+                    <div class="text-center pt-1 mb-5 pb-1">
+                      <button style="width: 65%" class="btn btn-primary btn-block gradient-custom-2 mb-3"
+                        type="submit">Log in</button><br>
+                      <a style="color: #fff;" href="forgot-password.php">Forgot password?</a>
+                    </div>
+
                     <div class="d-flex align-items-center justify-content-center pb-4">
                       <p class="mb-0 me-2">Don't have an account?</p>
                       <a href="signup.php" class="btn btn-outline-danger">Create new</a>
