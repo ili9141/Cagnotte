@@ -76,6 +76,7 @@ $user_type = isset($_SESSION['user_type']) ? $_SESSION['user_type'] : null;
               <li><a class="dropdown-item" href="../Pages/profile.php">Settings</a></li>
               <li><a class="dropdown-item" href="../Pages/tracker.php">Analytics</a></li>
               <li><a class="dropdown-item" href="../Pages/History.php">History</a></li>
+              <li><a class="dropdown-item" href="../Pages/transactions.php">Transactions</a></li>
               <li><a class="dropdown-item" href="../Backend/logout.php">Log Out</a></li>
             </ul>
           </li>
@@ -91,8 +92,6 @@ $user_type = isset($_SESSION['user_type']) ? $_SESSION['user_type'] : null;
     </div>
   </nav>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 <script>
  document.addEventListener("DOMContentLoaded", function () {
     const notificationBadge = document.getElementById("notificationBadge");
