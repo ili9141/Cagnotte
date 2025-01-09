@@ -55,7 +55,6 @@
                     <div class="text-center pt-1 mb-5 pb-1">
                       <button style="width: 65%" class="btn btn-primary btn-block gradient-custom-2 mb-3"
                         type="submit">Log in</button><br>
-                      <a style="color: #fff;" href="forgot-password.php">Forgot password?</a>
                     </div>
 
                     <div class="d-flex align-items-center justify-content-center pb-4">
