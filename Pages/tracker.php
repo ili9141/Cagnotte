@@ -292,12 +292,19 @@ $category_colors_json = json_encode($category_colors);
   }
 
   .btn-custom {
-    background-color: #f9c74f;
-    color: white;
+     background: linear-gradient(45deg, #5C469C, #D4ADFC);
+     color: white;
+  }
+
+  .btn-custom:hover {
+    background: linear-gradient(45deg, #D4ADFC, #5C469C);
+  transform: scale(1.1);
+  box-shadow: 0 5px 15px rgba(212, 173, 252, 0.7);
   }
 
   #trackerTabs .nav-item {
     padding-right: 10px;
     /* Adds spacing between the tabs */
   }
+  
 </style>

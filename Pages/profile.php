@@ -130,7 +130,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['delete_account'])) {
 
                             <!-- Submit Button -->
                             <div class="text-center">
-                                <button type="submit" class="btn btn-custom">Update Information</button>
+                            <button type="submit" class="btn btn-primary">Update Information</button>
+
                             </div>
                         </form>
                     </div>
