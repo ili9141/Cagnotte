@@ -17,6 +17,7 @@ if (isset($_SESSION['user_type'])) {
 
 <?php include('../components/navb.php'); ?>
 
+
 <!-- Carousel Section -->
 <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel" style="background: linear-gradient(135deg, #0C134F, #1D267D);">
     <div class="carousel-inner" style="height: 100vh; border-radius: 20px; overflow: hidden;">
